@@ -1,0 +1,4 @@
+node_modules/
+generators/
+output/
+coverage
