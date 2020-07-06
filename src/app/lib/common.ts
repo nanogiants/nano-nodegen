@@ -14,6 +14,11 @@ export const createBase = (ctx: Generator, config: IConfig): void => {
   );
 
   ctx.fs.copy(
+    ctx.templatePath(Filenames.NODEMON_CONFIG),
+    ctx.destinationPath(Filenames.NODEMON_CONFIG)
+  );
+
+  ctx.fs.copy(
     ctx.templatePath(Filenames.GIT_IGNORE),
     ctx.destinationPath(Filenames.GIT_IGNORE)
   );

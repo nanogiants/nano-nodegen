@@ -19,6 +19,7 @@ const defaultFiles = [
   Filenames.GIT_IGNORE,
   Filenames.PACKAGE_JSON,
   Filenames.SRC_FOLDER,
+  Filenames.NODEMON_CONFIG,
 ];
 
 describe('app', () => {
