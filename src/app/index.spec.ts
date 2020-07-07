@@ -4,9 +4,9 @@ import assert from 'yeoman-assert';
 import { Answers } from 'yeoman-generator';
 import helpers from 'yeoman-test';
 
-import { Features } from '../enums/features';
-import { Filenames } from '../enums/filenames';
-import { Names } from '../enums/names';
+import { Features } from '../lib/enums/features';
+import { Filenames } from '../lib/enums/filenames';
+import { Names } from '../lib/enums/names';
 
 const run = async (prompts: Answers, skipNpmInstall = true) => {
   return helpers.run(__dirname).withPrompts(prompts).withOptions({

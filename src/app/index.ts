@@ -1,16 +1,11 @@
 import Generator from 'yeoman-generator';
 
-import { Features } from '../enums/features';
-import { Messages } from '../enums/messages';
-import { Names } from '../enums/names';
-import { withFeature } from '../helpers';
-
-import { createBase } from './lib/common';
-import { createEslint } from './lib/eslint';
-import { createJest } from './lib/jest';
-import { createLintStaged } from './lib/lintStaged';
-import { createPrettier } from './lib/prettier';
-import { createSonarqube } from './lib/sonarqube';
+import { Features } from '../lib/enums/features';
+import { Filenames } from '../lib/enums/filenames';
+import { Messages } from '../lib/enums/messages';
+import { Names } from '../lib/enums/names';
+import { withFeature } from '../lib/helpers';
+import rootPkg from '../lib/helpers/package';
 
 interface Answers {
   [Names.PROJECT_NAME]: string;
@@ -32,6 +27,7 @@ const defaultAnswers: Answers = {
 
 export default class extends Generator {
   answers: Answers = defaultAnswers;
+
   async prompting(): Promise<void> {
     const answers = await this.prompt([
       {
@@ -89,32 +85,67 @@ export default class extends Generator {
       },
     ]);
     this.answers = answers;
-    // console.log({ answers });
   }
 
   writing(): void {
-    createBase(this, {
-      title: this.answers.projectname,
+    [
+      Filenames.TS_CONFIG,
+      Filenames.NODEMON_CONFIG,
+      Filenames.GIT_IGNORE,
+      Filenames.SRC_FOLDER,
+    ].forEach((fileName: Filenames) => {
+      this.fs.copy(this.templatePath(fileName), this.destinationPath(fileName));
+    });
+
+    // this.fs.copyTpl(
+    //   this.templatePath(Filenames.PACKAGE_JSON),
+    //   this.destinationPath(Filenames.PACKAGE_JSON),
+    //   {
+    //     title: this.answers.projectname,
+    //     author: this.answers.author,
+    //   }
+    // );
+
+    this.fs.writeJSON(this.destinationPath(Filenames.PACKAGE_JSON), {
+      name: this.answers.projectname,
+      version: '0.1.0',
+      description: 'A node starter',
+      main: 'index.js',
+      scripts: {
+        build: 'rimraf ./build && tsc',
+        start: 'npm run build && node build/index.js',
+        'start:dev': 'nodemon',
+      },
       author: this.answers.author,
+      license: 'MIT',
+      devDependencies: {
+        '@types/node': rootPkg.devDependencies['@types/node'],
+        nodemon: '^2.0.4',
+        rimraf: '^3.0.2',
+        'ts-node': '^8.10.2',
+        typescript: rootPkg.devDependencies.typescript,
+      },
     });
 
     if (withFeature(this.answers, Features.ESLINT)) {
-      createEslint(this);
+      this.composeWith(require.resolve('../eslint'), {});
     }
     if (withFeature(this.answers, Features.PRETTIER)) {
-      createPrettier(this);
+      this.composeWith(require.resolve('../prettier'), {});
     }
 
     if (withFeature(this.answers, Features.JEST)) {
-      createJest(this);
+      this.composeWith(require.resolve('../jest'), {});
     }
 
     if (this.answers[Names.SONARQUBE]) {
-      createSonarqube(this, { token: this.answers[Names.SONARQUBE_TOKEN] });
+      this.composeWith(require.resolve('../sonarqube'), {
+        token: this.answers[Names.SONARQUBE_TOKEN],
+      });
     }
 
     if (this.answers[Names.LINT_STAGED]) {
-      createLintStaged(this, {
+      this.composeWith(require.resolve('../lint-staged'), {
         withPrettier: withFeature(this.answers, Features.PRETTIER),
       });
     }

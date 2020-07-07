@@ -17,8 +17,6 @@ while getopts ":k:" opt; do
   esac
 done
 
-echo "$key"
-
 sonar-scanner \
   -D sonar.host.url=http://localhost:9000 \
   -D sonar.login=$key
