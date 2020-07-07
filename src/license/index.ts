@@ -17,5 +17,8 @@ module.exports = class extends Generator {
       this.destinationPath(Filenames.LICENSE),
       { license: licenseContent }
     );
+    this.fs.extendJSON(this.destinationPath(Filenames.PACKAGE_JSON), {
+      license: this.license,
+    });
   }
 };

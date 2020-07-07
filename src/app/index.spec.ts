@@ -27,7 +27,7 @@ describe('app', () => {
     it('should generate empty project and install modules', async () => {
       await run(
         {
-          [Names.PROJECT_NAME]: 'Hans',
+          [Names.PROJECT_NAME]: 'hans',
           [Names.AUTHOR]: 'r.heinen@nanogiants.de',
         },
         false
@@ -38,7 +38,7 @@ describe('app', () => {
         author: 'r.heinen@nanogiants.de',
       });
       assert.jsonFileContent(Filenames.PACKAGE_JSON, {
-        name: 'Hans',
+        name: 'hans',
       });
       assert.file('node_modules');
     }, 30000);
@@ -46,7 +46,7 @@ describe('app', () => {
   describe('given eslint selected', () => {
     it('should create eslint files and dependencies', async () => {
       await run({
-        [Names.PROJECT_NAME]: 'Hans',
+        [Names.PROJECT_NAME]: 'hans',
         [Names.AUTHOR]: 'r.heinen@nanogiants.de',
         [Names.FEATURES]: [Features.ESLINT],
         [Names.LINT_STAGED]: false,
@@ -69,7 +69,7 @@ describe('app', () => {
   describe('given prettier selected', () => {
     it('should create prettier files and dependencies', async () => {
       await run({
-        [Names.PROJECT_NAME]: 'Hans',
+        [Names.PROJECT_NAME]: 'hans',
         [Names.AUTHOR]: 'r.heinen@nanogiants.de',
         [Names.FEATURES]: [Features.PRETTIER],
       });
@@ -88,7 +88,7 @@ describe('app', () => {
   describe('given jest selected', () => {
     it('should create jest files and dependencies', async () => {
       await run({
-        [Names.PROJECT_NAME]: 'Hans',
+        [Names.PROJECT_NAME]: 'hans',
         [Names.AUTHOR]: 'r.heinen@nanogiants.de',
         [Names.FEATURES]: [Features.JEST],
       });
@@ -114,7 +114,7 @@ describe('app', () => {
   describe('given sonarqube selected', () => {
     it('should create sonarqube files and dependencies', async () => {
       await run({
-        [Names.PROJECT_NAME]: 'Hans',
+        [Names.PROJECT_NAME]: 'hans',
         [Names.AUTHOR]: 'r.heinen@nanogiants.de',
         [Names.FEATURES]: [Features.JEST],
         [Names.SONARQUBE]: true,
@@ -141,7 +141,7 @@ describe('app', () => {
     describe('given prettier not selected', () => {
       it('should create lint-staged config', async () => {
         await run({
-          [Names.PROJECT_NAME]: 'Hans',
+          [Names.PROJECT_NAME]: 'hans',
           [Names.AUTHOR]: 'r.heinen@nanogiants.de',
           [Names.FEATURES]: [Features.ESLINT],
           [Names.LINT_STAGED]: true,
@@ -168,7 +168,7 @@ describe('app', () => {
     describe('given prettier also selected', () => {
       it('should create lint-staged config', async () => {
         await run({
-          [Names.PROJECT_NAME]: 'Hans',
+          [Names.PROJECT_NAME]: 'hans',
           [Names.AUTHOR]: 'r.heinen@nanogiants.de',
           [Names.FEATURES]: [Features.ESLINT, Features.PRETTIER],
           [Names.LINT_STAGED]: true,

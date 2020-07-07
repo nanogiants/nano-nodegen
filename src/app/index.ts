@@ -113,6 +113,7 @@ export default class extends Generator {
         ]);
         this.answers[Names.LICENSE] = licenseAnswer[Names.LICENSE];
       } catch (error) {
+        this.answers[Names.WITH_LICENSE] = false;
         console.log('Error while fetching licenses, skipping...');
       }
     }
@@ -140,7 +141,6 @@ export default class extends Generator {
         'start:dev': 'nodemon',
       },
       author: this.answers.author,
-      license: 'MIT',
       devDependencies: {
         '@types/node': rootPkg.devDependencies['@types/node'],
         nodemon: '^2.0.4',
