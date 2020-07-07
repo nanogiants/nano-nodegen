@@ -5,4 +5,6 @@ export enum Names {
   SONARQUBE = 'sonarqube',
   SONARQUBE_TOKEN = 'sonarqube-token',
   LINT_STAGED = 'lint-staged',
+  WITH_LICENSE = 'with-license',
+  LICENSE = 'license',
 }

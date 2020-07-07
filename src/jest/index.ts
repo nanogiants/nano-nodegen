@@ -8,7 +8,6 @@ module.exports = class extends Generator {
   token: string | null;
   constructor(args: string | string[], config: any) {
     super(args, config);
-    console.log({ config });
     this.token = config.token;
   }
 
