@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "description": "A simple generator for scaffolding node.js apps",
   "author": "René Heinen<r.heinen@nanoGiants.de>",
+  "private": false,
   "files": [
     "generators"
   ],

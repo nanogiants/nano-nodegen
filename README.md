@@ -5,7 +5,7 @@ This package contains a yeoman generator for scaffolding node apps with typescri
 
 ```bash
 npm i -g yo
-npm i -g @nanogiants/nano-nodegen
+npm i -g @nanogiants/generator-nano-nodegen
 yo @nanogiants/nano-nodegen
 ```
 
