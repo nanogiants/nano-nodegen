@@ -1,5 +1,5 @@
 {
-  "name": "generator-nano-nodegen",
+  "name": "@nanogiants/generator-nano-nodegen",
   "version": "0.1.0",
   "description": "A simple generator for scaffolding node.js apps",
   "author": "René Heinen<r.heinen@nanoGiants.de>",
@@ -9,6 +9,11 @@
   "keywords": [
     "yeoman-generator"
   ],
+  "homepage": "https://github.com/nanogiants/nano-nodegen#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nanogiants/nano-nodegen.git"
+  },
   "scripts": {
     "build": "rimraf ./generators && rimraf ./output && tsc",
     "start:dev": "npm run build && npm run copy:assets && npm link && mkdir output && cd output && yo nano-nodegen",

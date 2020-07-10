@@ -6,7 +6,7 @@ This package contains a yeoman generator for scaffolding node apps with typescri
 ```bash
 npm i -g yo
 npm i -g @nanogiants/nano-nodegen
-yo nano-nodegen
+yo @nanogiants/nano-nodegen
 ```
 
 These commands will prompt you with some questions from which your project gets bootstrapped.
@@ -56,3 +56,7 @@ or
 ```bash
 sh ./scripts/report_sonarqube.sh -k YOUR_KEY
 ```
+
+## License
+
+[MIT](https://github.com/nanogiants/nano-nodegen/blob/develop/LICENSE.md)
