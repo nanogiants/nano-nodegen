@@ -20,8 +20,8 @@
   },
   "scripts": {
     "build": "rimraf ./generators && rimraf ./output && tsc && npm run copy:assets",
-    "start:dev": "npm run build && npm run copy:assets && npm link && mkdir output && cd output && yo nano-nodegen",
-    "copy:assets": "sh scripts/copy_assets.sh",
+    "start:dev": "npm run build && npm link && mkdir output && cd output && yo nano-nodegen",
+    "copy:assets": "./scripts/copy_assets.sh",
     "test": "jest --runInBand",
     "test:cov": "jest --coverage --runInBand",
     "sonarqube:start": "docker-compose up -d",
