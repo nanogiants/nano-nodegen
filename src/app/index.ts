@@ -1,3 +1,4 @@
+import path from 'path';
 import isValidPkgJsonName from 'validate-npm-package-name';
 import Generator from 'yeoman-generator';
 
@@ -120,6 +121,10 @@ export default class extends Generator {
   }
 
   writing(): void {
+    this.destinationRoot(
+      path.join(this.destinationRoot(), '/' + this.answers[Names.PROJECT_NAME])
+    );
+
     [
       Filenames.TS_CONFIG,
       Filenames.NODEMON_CONFIG,
