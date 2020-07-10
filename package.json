@@ -1,6 +1,6 @@
 {
   "name": "@nanogiants/generator-nano-nodegen",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "description": "A simple generator for scaffolding node.js apps",
   "author": "René Heinen<r.heinen@nanoGiants.de>",
   "publishConfig": {
@@ -10,7 +10,15 @@
     "generators"
   ],
   "keywords": [
-    "yeoman-generator"
+    "yeoman-generator",
+    "node",
+    "generator",
+    "jest",
+    "eslint",
+    "husky",
+    "prettier",
+    "lint-staged",
+    "nanogiants"
   ],
   "license": "MIT",
   "homepage": "https://github.com/nanogiants/nano-nodegen#readme",
@@ -26,7 +34,8 @@
     "test:cov": "jest --coverage --runInBand",
     "sonarqube:start": "docker-compose up -d",
     "sonarqube:stop": "docker-compose down",
-    "sonarqube:report": "sh scripts/report_sonarqube.sh -k"
+    "sonarqube:report": "sh scripts/report_sonarqube.sh -k",
+    "postversion": "git push && git push --tags"
   },
   "dependencies": {
     "axios": "^0.19.2",
