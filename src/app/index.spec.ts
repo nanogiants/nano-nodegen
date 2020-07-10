@@ -7,6 +7,7 @@ import helpers from 'yeoman-test';
 import { Features } from '../lib/enums/features';
 import { Filenames } from '../lib/enums/filenames';
 import { Names } from '../lib/enums/names';
+import rootPkg from '../lib/helpers/package';
 
 const run = async (prompts: Answers, skipNpmInstall = true) => {
   return helpers.run(__dirname).withPrompts(prompts).withOptions({
@@ -57,10 +58,13 @@ describe('app', () => {
 
       assert.jsonFileContent(Filenames.PACKAGE_JSON, {
         devDependencies: {
-          '@typescript-eslint/eslint-plugin': '^3.5.0',
-          '@typescript-eslint/parser': '^3.5.0',
-          eslint: '^7.3.1',
-          'eslint-plugin-import': '^2.22.0',
+          '@typescript-eslint/eslint-plugin':
+            rootPkg.devDependencies['@typescript-eslint/eslint-plugin'],
+          '@typescript-eslint/parser':
+            rootPkg.devDependencies['@typescript-eslint/parser'],
+          eslint: rootPkg.devDependencies.eslint,
+          'eslint-plugin-import':
+            rootPkg.devDependencies['eslint-plugin-import'],
         },
       });
     });
@@ -79,7 +83,7 @@ describe('app', () => {
 
       assert.jsonFileContent(Filenames.PACKAGE_JSON, {
         devDependencies: {
-          prettier: '^2.0.5',
+          prettier: rootPkg.devDependencies.prettier,
         },
       });
     });
@@ -103,9 +107,9 @@ describe('app', () => {
           'test:cov': 'jest --coverage --runInBand',
         },
         devDependencies: {
-          '@types/jest': '^26.0.3',
-          jest: '^26.1.0',
-          'ts-jest': '^26.1.1',
+          '@types/jest': rootPkg.devDependencies['@types/jest'],
+          jest: rootPkg.devDependencies.jest,
+          'ts-jest': rootPkg.devDependencies['ts-jest'],
         },
       });
     });
