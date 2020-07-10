@@ -16,7 +16,7 @@ const run = async (prompts: Answers, skipNpmInstall = true) => {
 
 const defaultFiles = [
   Filenames.TS_CONFIG,
-  Filenames.GIT_IGNORE,
+  `.${Filenames.GIT_IGNORE}`,
   Filenames.PACKAGE_JSON,
   Filenames.SRC_FOLDER,
   Filenames.NODEMON_CONFIG,
