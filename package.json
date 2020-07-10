@@ -19,7 +19,7 @@
     "url": "git+https://github.com/nanogiants/nano-nodegen.git"
   },
   "scripts": {
-    "build": "rimraf ./generators && rimraf ./output && tsc",
+    "build": "rimraf ./generators && rimraf ./output && tsc && npm run copy:assets",
     "start:dev": "npm run build && npm run copy:assets && npm link && mkdir output && cd output && yo nano-nodegen",
     "copy:assets": "sh scripts/copy_assets.sh",
     "test": "jest --runInBand",
