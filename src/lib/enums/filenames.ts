@@ -9,7 +9,7 @@ export enum Filenames {
   SONARQUBE_PROPERTIES = 'sonar-project.properties',
   SONARQUBE_REPORT_SCRIPT = 'report_sonarqube.sh',
   DOCKER_COMPOSE = 'docker-compose.yml',
-  GIT_IGNORE = '.gitignore',
+  GIT_IGNORE = 'gitignore',
   LICENSE = 'LICENSE.md',
   README = 'README.md',
 

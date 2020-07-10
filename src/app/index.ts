@@ -127,7 +127,12 @@ export default class extends Generator {
       Filenames.SRC_FOLDER,
       Filenames.README,
     ].forEach((fileName: Filenames) => {
-      this.fs.copy(this.templatePath(fileName), this.destinationPath(fileName));
+      this.fs.copy(
+        this.templatePath(fileName),
+        fileName === Filenames.GIT_IGNORE
+          ? this.destinationPath(`.${fileName}`)
+          : this.destinationPath(fileName)
+      );
     });
 
     this.fs.writeJSON(this.destinationPath(Filenames.PACKAGE_JSON), {
