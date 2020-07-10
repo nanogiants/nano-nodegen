@@ -10,7 +10,15 @@
     "generators"
   ],
   "keywords": [
-    "yeoman-generator"
+    "yeoman-generator",
+    "node",
+    "generator",
+    "jest",
+    "eslint",
+    "husky",
+    "prettier",
+    "lint-staged",
+    "nanogiants"
   ],
   "license": "MIT",
   "homepage": "https://github.com/nanogiants/nano-nodegen#readme",
