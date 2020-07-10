@@ -34,7 +34,8 @@
     "test:cov": "jest --coverage --runInBand",
     "sonarqube:start": "docker-compose up -d",
     "sonarqube:stop": "docker-compose down",
-    "sonarqube:report": "sh scripts/report_sonarqube.sh -k"
+    "sonarqube:report": "sh scripts/report_sonarqube.sh -k",
+    "postversion": "git push && git push --tags"
   },
   "dependencies": {
     "axios": "^0.19.2",
