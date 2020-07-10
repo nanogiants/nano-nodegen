@@ -3,13 +3,16 @@
   "version": "0.1.1",
   "description": "A simple generator for scaffolding node.js apps",
   "author": "René Heinen<r.heinen@nanoGiants.de>",
-  "private": false,
+  "publishConfig": {
+    "access": "public"
+  },
   "files": [
     "generators"
   ],
   "keywords": [
     "yeoman-generator"
   ],
+  "license": "MIT",
   "homepage": "https://github.com/nanogiants/nano-nodegen#readme",
   "repository": {
     "type": "git",
