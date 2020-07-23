@@ -1,7 +1,7 @@
-import Generator from 'yeoman-generator';
+import Generator from "yeoman-generator";
 
-import { Filenames } from '../lib/enums/filenames';
-import rootPkg from '../lib/helpers/package';
+import { Filenames } from "../lib/enums/filenames";
+import rootPkg from "../lib/helpers/package";
 
 module.exports = class extends Generator {
   withPrettier = false;
@@ -11,24 +11,24 @@ module.exports = class extends Generator {
   }
 
   writing() {
-    const lintStagedCommands = ['eslint . --fix', 'git add'];
+    const lintStagedCommands = ["eslint . --fix", "git add"];
 
     // add prettier command to lint-staged
     if (this.withPrettier) {
-      lintStagedCommands.splice(1, 0, 'prettier --write');
+      lintStagedCommands.splice(1, 0, "prettier --write");
     }
 
     this.fs.extendJSON(this.destinationPath(Filenames.PACKAGE_JSON), {
-      scripts: {
+      devDependencies: {
         husky: rootPkg.devDependencies.husky,
-        'lint-staged': rootPkg.devDependencies['lint-staged'],
+        "lint-staged": rootPkg.devDependencies["lint-staged"],
       },
-      'lint-staged': {
-        'src/**/*.{js,ts}': lintStagedCommands,
+      "lint-staged": {
+        "src/**/*.{js,ts}": lintStagedCommands,
       },
       husky: {
         hooks: {
-          'pre-commit': 'lint-staged',
+          "pre-commit": "lint-staged",
         },
       },
     });
