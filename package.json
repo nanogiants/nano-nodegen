@@ -1,8 +1,8 @@
 {
   "name": "@nanogiants/generator-nano-nodegen",
-  "version": "0.1.12",
+  "version": "0.1.13",
   "description": "A simple generator for scaffolding node.js apps",
-  "author": "René Heinen<r.heinen@nanoGiants.de>",
+  "author": "René Heinen<r.heinen@NanoGiants.de>",
   "publishConfig": {
     "access": "public"
   },
@@ -34,8 +34,7 @@
     "test:cov": "jest --coverage --runInBand",
     "sonarqube:start": "docker-compose up -d",
     "sonarqube:stop": "docker-compose down",
-    "sonarqube:report": "sh scripts/report_sonarqube.sh -k",
-    "postversion": "git push && git push --tags"
+    "sonarqube:report": "sh scripts/report_sonarqube.sh -k"
   },
   "dependencies": {
     "axios": "^0.19.2",
@@ -65,7 +64,7 @@
   },
   "lint-staged": {
     "src/**/*.{js,ts}": [
-      "eslint . --fix",
+      "eslint 'src/**/*.{js,ts,tsx}' --fix",
       "prettier --write",
       "git add"
     ]
