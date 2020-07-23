@@ -1,6 +1,6 @@
 {
   "name": "@nanogiants/generator-nano-nodegen",
-  "version": "0.1.12",
+  "version": "0.1.13",
   "description": "A simple generator for scaffolding node.js apps",
   "author": "René Heinen<r.heinen@NanoGiants.de>",
   "publishConfig": {
