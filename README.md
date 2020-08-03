@@ -13,6 +13,30 @@ These commands will prompt you with some questions from which your project gets 
 
 ## Features
 
+### Filetree when selecting all options
+
+```bash
+├── .eslintrc.js # eslint config
+├── .gitignore # files ignored by git
+├── .prettierrc.js # prettier config
+├── LICENSE.md
+├── README.md
+├── docker-compose.yml # compose file for sonarqube and postgress containers
+├── jest.config.js # config for your jest testing library
+├── nodemon.json # config for your filewatcher
+├── package-lock.json
+├── package.json # your projects package setup
+├── scripts
+│   └── report_sonarqube.sh # helper script to report to sonarqube
+├── sonar-project.properties # sonarqube configuration file
+├── src
+│   ├── index.ts # your apps entry point
+│   └── lib # your apps logic
+│       ├── hello.spec.ts # a sample test file
+│       └── hello.ts # a sample ts file
+└── tsconfig.json # the typescript configuration file
+```
+
 ### Eslint
 Enables linting with predefined config.
 See more at [eslint](https://www.npmjs.com/package/eslint).

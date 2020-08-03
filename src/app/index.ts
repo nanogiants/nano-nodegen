@@ -1,23 +1,15 @@
-import path from "path";
-import isValidPkgJsonName from "validate-npm-package-name";
-import Generator from "yeoman-generator";
+import path from 'path';
+import isValidPkgJsonName from 'validate-npm-package-name';
+import Generator from 'yeoman-generator';
 
-import { Features } from "../lib/enums/features";
-import { Filenames } from "../lib/enums/filenames";
-import { Messages } from "../lib/enums/messages";
-import { Names } from "../lib/enums/names";
-import { withFeature, getLicenses } from "../lib/helpers";
-import rootPkg from "../lib/helpers/package";
-interface Answers {
-  [Names.PROJECT_NAME]: string;
-  [Names.AUTHOR]: string;
-  [Names.FEATURES]: Features[];
-  [Names.SONARQUBE]: boolean;
-  [Names.LINT_STAGED]: boolean;
-  [Names.SONARQUBE_TOKEN]: string | null;
-  [Names.WITH_LICENSE]: boolean;
-  [Names.LICENSE]: string;
-}
+import { Features } from '../lib/enums/features';
+import { Filenames } from '../lib/enums/filenames';
+import { Messages } from '../lib/enums/messages';
+import { Names } from '../lib/enums/names';
+import { withFeature } from '../lib/helpers';
+import { GithubClient } from '../lib/helpers/github.client';
+import rootPkg from '../lib/helpers/package';
+import { Answers } from '../lib/interfaces/answers';
 
 const defaultAnswers: Answers = {
   [Names.PROJECT_NAME]: Names.PROJECT_NAME,
@@ -27,7 +19,7 @@ const defaultAnswers: Answers = {
   [Names.LINT_STAGED]: false,
   [Names.SONARQUBE_TOKEN]: null,
   [Names.WITH_LICENSE]: true,
-  [Names.LICENSE]: "mit",
+  [Names.LICENSE]: 'mit',
 };
 
 export default class extends Generator {
@@ -36,20 +28,20 @@ export default class extends Generator {
   async prompting(): Promise<void> {
     const answers = await this.prompt([
       {
-        type: "input",
+        type: 'input',
         name: Names.PROJECT_NAME,
         message: Messages.PROJECT_NAME,
         validate: (answer) => isValidPkgJsonName(answer).validForNewPackages,
         default: defaultAnswers.projectname,
       },
       {
-        type: "input",
+        type: 'input',
         name: Names.AUTHOR,
         message: Messages.AUTHOR,
         default: defaultAnswers.author,
       },
       {
-        type: "checkbox",
+        type: 'checkbox',
         name: Names.FEATURES,
         message: Messages.FEATURES,
         default: defaultAnswers.features,
@@ -69,40 +61,40 @@ export default class extends Generator {
         ],
       },
       {
-        type: "confirm",
+        type: 'confirm',
         name: Names.SONARQUBE,
         message: Messages.SONARQUBE,
         default: defaultAnswers.sonarqube,
         when: (answers) => withFeature(answers, Features.JEST),
       },
       {
-        type: "input",
+        type: 'input',
         name: Names.SONARQUBE_TOKEN,
         message: Messages.SONARQUBE_TOKEN,
         default: defaultAnswers[Names.SONARQUBE_TOKEN],
         when: (answers) => answers[Names.SONARQUBE],
       },
       {
-        type: "confirm",
+        type: 'confirm',
         name: Names.LINT_STAGED,
         message: Messages.LINT_STAGED,
         default: defaultAnswers[Names.LINT_STAGED],
         when: (answers) => withFeature(answers, Features.ESLINT),
       },
       {
-        type: "confirm",
+        type: 'confirm',
         name: Names.WITH_LICENSE,
         message: Messages.WITH_LICENSE,
-        default: true,
+        default: defaultAnswers['with-license'],
       },
     ]);
     this.answers = { ...defaultAnswers, ...answers };
     if (answers[Names.WITH_LICENSE]) {
       try {
-        const licenses = await getLicenses();
+        const licenses = await GithubClient.getLicenses();
         const licenseAnswer = await this.prompt([
           {
-            type: "list",
+            type: 'list',
             name: Names.LICENSE,
             message: Messages.LICENSE,
             default: defaultAnswers[Names.LICENSE],
@@ -115,14 +107,14 @@ export default class extends Generator {
         this.answers[Names.LICENSE] = licenseAnswer[Names.LICENSE];
       } catch (error) {
         this.answers[Names.WITH_LICENSE] = false;
-        console.log("Error while fetching licenses, skipping...");
+        console.log('Error while fetching licenses, skipping...');
       }
     }
   }
 
   writing(): void {
     this.destinationRoot(
-      path.join(this.destinationRoot(), "/" + this.answers[Names.PROJECT_NAME])
+      path.join(this.destinationRoot(), '/', this.answers[Names.PROJECT_NAME])
     );
 
     [
@@ -142,56 +134,56 @@ export default class extends Generator {
 
     this.fs.writeJSON(this.destinationPath(Filenames.PACKAGE_JSON), {
       name: this.answers.projectname,
-      version: "0.1.0",
-      description: "A node starter",
-      main: "index.js",
+      version: '0.1.0',
+      description: 'A node starter',
+      main: 'index.js',
       scripts: {
-        build: "rimraf ./build && tsc",
-        start: "npm run build && node build/index.js",
-        "start:dev": "nodemon",
+        build: 'rimraf ./build && tsc',
+        start: 'npm run build && node build/index.js',
+        'start:dev': 'nodemon',
       },
       author: this.answers.author,
       devDependencies: {
-        "@types/node": rootPkg.devDependencies["@types/node"],
-        nodemon: "^2.0.4",
-        rimraf: "^3.0.2",
-        "ts-node": "^8.10.2",
+        '@types/node': rootPkg.devDependencies['@types/node'],
+        nodemon: '^2.0.4',
+        rimraf: '^3.0.2',
+        'ts-node': '^8.10.2',
         typescript: rootPkg.devDependencies.typescript,
       },
     });
 
     if (withFeature(this.answers, Features.ESLINT)) {
-      this.composeWith(require.resolve("../eslint"), {});
+      this.composeWith(require.resolve('../eslint'), {});
     }
     if (withFeature(this.answers, Features.PRETTIER)) {
-      this.composeWith(require.resolve("../prettier"), {});
+      this.composeWith(require.resolve('../prettier'), {});
     }
 
     if (withFeature(this.answers, Features.JEST)) {
-      this.composeWith(require.resolve("../jest"), {});
+      this.composeWith(require.resolve('../jest'), {});
     }
 
     if (this.answers[Names.SONARQUBE]) {
-      this.composeWith(require.resolve("../sonarqube"), {
+      this.composeWith(require.resolve('../sonarqube'), {
         token: this.answers[Names.SONARQUBE_TOKEN],
       });
     }
 
     if (this.answers[Names.LINT_STAGED]) {
-      this.composeWith(require.resolve("../lint-staged"), {
+      this.composeWith(require.resolve('../lint-staged'), {
         withPrettier: withFeature(this.answers, Features.PRETTIER),
       });
     }
 
     if (this.answers[Names.WITH_LICENSE]) {
-      this.composeWith(require.resolve("../license"), {
+      this.composeWith(require.resolve('../license'), {
         license: this.answers.license,
       });
     }
   }
 
   install(): void {
-    this.spawnCommandSync("git", ["init", "--quiet"]);
+    this.spawnCommandSync('git', ['init', '--quiet']);
     this.npmInstall();
   }
 }
