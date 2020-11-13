@@ -1,13 +1,12 @@
 import chalk from 'chalk';
 import path from 'path';
-import isValidPkgJsonName from 'validate-npm-package-name';
 import Generator from 'yeoman-generator';
 
 import { Features } from '../lib/enums/features';
 import { Filenames } from '../lib/enums/filenames';
 import { Messages } from '../lib/enums/messages';
 import { Names } from '../lib/enums/names';
-import { withFeature } from '../lib/helpers';
+import { withFeature, validatePackageJsonName } from '../lib/helpers';
 import { GithubClient } from '../lib/helpers/github.client';
 import rootPkg from '../lib/helpers/package';
 import { Answers } from '../lib/interfaces/answers';
@@ -32,7 +31,7 @@ export default class extends Generator {
         type: 'input',
         name: Names.PROJECT_NAME,
         message: Messages.PROJECT_NAME,
-        validate: (answer) => isValidPkgJsonName(answer).validForNewPackages,
+        validate: validatePackageJsonName,
         default: defaultAnswers.projectname,
       },
       {
