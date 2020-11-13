@@ -1,9 +1,15 @@
 jobs:
   include:
     - stage: test
+      name: "Unit Tests"  
       language: node_js
-      if: type = push AND (NOT (branch = master))
-      node_js: 12
+      if: type IN (pull_request, push)
+      node_js:
+      - 14
+      - 13
+      - 12
+      - 11
+      - 10
       install:
         - npm i
       script:
@@ -15,13 +21,13 @@ jobs:
         email: false
 
     - stage: build and deploy
+      name: "Build and deploy(on push)"
       language: node_js
       if: type IN (pull_request, push) AND branch = master
       node_js: 12
       install:
         - npm i
       script:
-        - npm run test
         - npm run build
       cache:
         directories:
