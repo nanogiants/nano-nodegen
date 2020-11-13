@@ -1,14 +1,14 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import path from "path";
-import assert from "yeoman-assert";
-import { Answers } from "yeoman-generator";
-import helpers from "yeoman-test";
+import path from 'path';
+import assert from 'yeoman-assert';
+import { Answers } from 'yeoman-generator';
+import helpers from 'yeoman-test';
 
-import { Features } from "../lib/enums/features";
-import { Filenames } from "../lib/enums/filenames";
-import { Names } from "../lib/enums/names";
-import { GithubClient } from "../lib/helpers/github.client";
-import rootPkg from "../lib/helpers/package";
+import { Features } from '../lib/enums/features';
+import { Filenames } from '../lib/enums/filenames';
+import { Names } from '../lib/enums/names';
+import { GithubClient } from '../lib/helpers/github.client';
+import rootPkg from '../lib/helpers/package';
 
 const run = async (prompts: Answers, skipNpmInstall = true) => {
   return helpers.run(__dirname).withPrompts(prompts).withOptions({
@@ -24,46 +24,46 @@ const defaultFiles = [
   Filenames.NODEMON_CONFIG,
 ];
 
-describe("app", () => {
+describe('app', () => {
   beforeEach(() => {
     // @ts-ignore
-    jest.spyOn(GithubClient.client, "get").mockImplementation((url: string) => {
-      if (url === "licenses") {
-        return Promise.resolve({ data: [{ name: "mit", key: "mit" }] });
+    jest.spyOn(GithubClient.client, 'get').mockImplementation((url: string) => {
+      if (url === 'licenses') {
+        return Promise.resolve({ data: [{ name: 'mit', key: 'mit' }] });
       }
-      if (url === "licenses/mit") {
-        return Promise.resolve({ data: "test" });
+      if (url === 'licenses/mit') {
+        return Promise.resolve({ data: 'test' });
       }
-      return Promise.resolve({ data: "test" });
+      return Promise.resolve({ data: 'test' });
     });
   });
 
-  describe("given no features selected", () => {
-    it("should generate empty project and install modules", async () => {
+  describe('given no features selected', () => {
+    it('should generate empty project and install modules', async () => {
       await run(
         {
-          [Names.PROJECT_NAME]: "hans",
-          [Names.AUTHOR]: "r.heinen@nanogiants.de",
+          [Names.PROJECT_NAME]: 'hans',
+          [Names.AUTHOR]: 'r.heinen@nanogiants.de',
         },
-        false
+        false,
       );
 
       assert.file(defaultFiles);
       assert.jsonFileContent(Filenames.PACKAGE_JSON, {
-        author: "r.heinen@nanogiants.de",
-        name: "hans",
+        author: 'r.heinen@nanogiants.de',
+        name: 'hans',
       });
 
-      assert.file("node_modules");
+      assert.file('node_modules');
     }, 30000);
   });
 
-  describe("eslint", () => {
-    describe("given eslint selected", () => {
-      it("should create eslint files and dependencies", async () => {
+  describe('eslint', () => {
+    describe('given eslint selected', () => {
+      it('should create eslint files and dependencies', async () => {
         await run({
-          [Names.PROJECT_NAME]: "hans",
-          [Names.AUTHOR]: "r.heinen@nanogiants.de",
+          [Names.PROJECT_NAME]: 'hans',
+          [Names.AUTHOR]: 'r.heinen@nanogiants.de',
           [Names.FEATURES]: [Features.ESLINT],
           [Names.LINT_STAGED]: false,
         });
@@ -72,22 +72,19 @@ describe("app", () => {
 
         assert.jsonFileContent(Filenames.PACKAGE_JSON, {
           devDependencies: {
-            "@typescript-eslint/eslint-plugin":
-              rootPkg.devDependencies["@typescript-eslint/eslint-plugin"],
-            "@typescript-eslint/parser":
-              rootPkg.devDependencies["@typescript-eslint/parser"],
+            '@typescript-eslint/eslint-plugin': rootPkg.devDependencies['@typescript-eslint/eslint-plugin'],
+            '@typescript-eslint/parser': rootPkg.devDependencies['@typescript-eslint/parser'],
             eslint: rootPkg.devDependencies.eslint,
-            "eslint-plugin-import":
-              rootPkg.devDependencies["eslint-plugin-import"],
+            'eslint-plugin-import': rootPkg.devDependencies['eslint-plugin-import'],
           },
         });
       });
     });
-    describe("given eslint not selected", () => {
-      it("should not create eslint files and dependencies", async () => {
+    describe('given eslint not selected', () => {
+      it('should not create eslint files and dependencies', async () => {
         await run({
-          [Names.PROJECT_NAME]: "hans",
-          [Names.AUTHOR]: "r.heinen@nanogiants.de",
+          [Names.PROJECT_NAME]: 'hans',
+          [Names.AUTHOR]: 'r.heinen@nanogiants.de',
           [Names.FEATURES]: [],
         });
 
@@ -95,25 +92,22 @@ describe("app", () => {
 
         assert.noJSONFileContent(Filenames.PACKAGE_JSON, {
           devDependencies: {
-            "@typescript-eslint/eslint-plugin":
-              rootPkg.devDependencies["@typescript-eslint/eslint-plugin"],
-            "@typescript-eslint/parser":
-              rootPkg.devDependencies["@typescript-eslint/parser"],
+            '@typescript-eslint/eslint-plugin': rootPkg.devDependencies['@typescript-eslint/eslint-plugin'],
+            '@typescript-eslint/parser': rootPkg.devDependencies['@typescript-eslint/parser'],
             eslint: rootPkg.devDependencies.eslint,
-            "eslint-plugin-import":
-              rootPkg.devDependencies["eslint-plugin-import"],
+            'eslint-plugin-import': rootPkg.devDependencies['eslint-plugin-import'],
           },
         });
       });
     });
   });
 
-  describe("prettier", () => {
-    describe("given prettier selected", () => {
-      it("should create prettier files and dependencies", async () => {
+  describe('prettier', () => {
+    describe('given prettier selected', () => {
+      it('should create prettier files and dependencies', async () => {
         await run({
-          [Names.PROJECT_NAME]: "hans",
-          [Names.AUTHOR]: "r.heinen@nanogiants.de",
+          [Names.PROJECT_NAME]: 'hans',
+          [Names.AUTHOR]: 'r.heinen@nanogiants.de',
           [Names.FEATURES]: [Features.PRETTIER],
         });
 
@@ -127,11 +121,11 @@ describe("app", () => {
       });
     });
 
-    describe("given prettier not selected", () => {
-      it("should not create prettier files and dependencies", async () => {
+    describe('given prettier not selected', () => {
+      it('should not create prettier files and dependencies', async () => {
         await run({
-          [Names.PROJECT_NAME]: "hans",
-          [Names.AUTHOR]: "r.heinen@nanogiants.de",
+          [Names.PROJECT_NAME]: 'hans',
+          [Names.AUTHOR]: 'r.heinen@nanogiants.de',
           [Names.FEATURES]: [],
         });
 
@@ -146,119 +140,111 @@ describe("app", () => {
     });
   });
 
-  describe("jest", () => {
-    describe("given jest selected", () => {
-      it("should create jest files and dependencies", async () => {
+  describe('jest', () => {
+    describe('given jest selected', () => {
+      it('should create jest files and dependencies', async () => {
         await run({
-          [Names.PROJECT_NAME]: "hans",
-          [Names.AUTHOR]: "r.heinen@nanogiants.de",
+          [Names.PROJECT_NAME]: 'hans',
+          [Names.AUTHOR]: 'r.heinen@nanogiants.de',
           [Names.FEATURES]: [Features.JEST],
         });
 
         assert.file(Filenames.JEST_CONFIG);
-        assert.file(
-          path.join(Filenames.SRC_FOLDER, "lib", Filenames.JEST_TEST)
-        );
+        assert.file(path.join(Filenames.SRC_FOLDER, 'lib', Filenames.JEST_TEST));
 
         assert.jsonFileContent(Filenames.PACKAGE_JSON, {
           scripts: {
-            test: "jest --runInBand",
-            "test:cov": "jest --coverage --runInBand",
+            test: 'jest --runInBand',
+            'test:cov': 'jest --coverage --runInBand',
           },
           devDependencies: {
-            "@types/jest": rootPkg.devDependencies["@types/jest"],
+            '@types/jest': rootPkg.devDependencies['@types/jest'],
             jest: rootPkg.devDependencies.jest,
-            "ts-jest": rootPkg.devDependencies["ts-jest"],
+            'ts-jest': rootPkg.devDependencies['ts-jest'],
           },
         });
       });
     });
-    describe("given jest not selected", () => {
-      it("should not create jest files and dependencies", async () => {
+    describe('given jest not selected', () => {
+      it('should not create jest files and dependencies', async () => {
         await run({
-          [Names.PROJECT_NAME]: "hans",
-          [Names.AUTHOR]: "r.heinen@nanogiants.de",
+          [Names.PROJECT_NAME]: 'hans',
+          [Names.AUTHOR]: 'r.heinen@nanogiants.de',
           [Names.FEATURES]: [],
         });
 
         assert.noFile(Filenames.JEST_CONFIG);
-        assert.noFile(
-          path.join(Filenames.SRC_FOLDER, "lib", Filenames.JEST_TEST)
-        );
+        assert.noFile(path.join(Filenames.SRC_FOLDER, 'lib', Filenames.JEST_TEST));
 
         assert.noJSONFileContent(Filenames.PACKAGE_JSON, {
           scripts: {
-            test: "jest --runInBand",
-            "test:cov": "jest --coverage --runInBand",
+            test: 'jest --runInBand',
+            'test:cov': 'jest --coverage --runInBand',
           },
           devDependencies: {
-            "@types/jest": rootPkg.devDependencies["@types/jest"],
+            '@types/jest': rootPkg.devDependencies['@types/jest'],
             jest: rootPkg.devDependencies.jest,
-            "ts-jest": rootPkg.devDependencies["ts-jest"],
+            'ts-jest': rootPkg.devDependencies['ts-jest'],
           },
         });
       });
     });
   });
 
-  describe("sonarqube", () => {
-    describe("given sonarqube selected", () => {
-      it("should create sonarqube files and dependencies", async () => {
+  describe('sonarqube', () => {
+    describe('given sonarqube selected', () => {
+      it('should create sonarqube files and dependencies', async () => {
         await run({
-          [Names.PROJECT_NAME]: "hans",
-          [Names.AUTHOR]: "r.heinen@nanogiants.de",
+          [Names.PROJECT_NAME]: 'hans',
+          [Names.AUTHOR]: 'r.heinen@nanogiants.de',
           [Names.FEATURES]: [Features.JEST],
           [Names.SONARQUBE]: true,
         });
 
         assert.file(Filenames.SONARQUBE_PROPERTIES);
         assert.file(Filenames.DOCKER_COMPOSE);
-        assert.file(
-          path.join(Filenames.SRIPTS_FOLDER, Filenames.SONARQUBE_REPORT_SCRIPT)
-        );
+        assert.file(path.join(Filenames.SRIPTS_FOLDER, Filenames.SONARQUBE_REPORT_SCRIPT));
 
         assert.jsonFileContent(Filenames.PACKAGE_JSON, {
           scripts: {
-            "sonarqube:start": "docker-compose up -d",
-            "sonarqube:stop": "docker-compose down",
-            "sonarqube:report": "sh scripts/report_sonarqube.sh -k",
+            'sonarqube:start': 'docker-compose up -d',
+            'sonarqube:stop': 'docker-compose down',
+            'sonarqube:report': 'sh scripts/report_sonarqube.sh -k',
           },
         });
       });
     });
-    describe("given sonarqube not selected", () => {
-      it("should not create sonarqube files and dependencies", async () => {
+    describe('given sonarqube not selected', () => {
+      it('should not create sonarqube files and dependencies', async () => {
         await run({
-          [Names.PROJECT_NAME]: "hans",
-          [Names.AUTHOR]: "r.heinen@nanogiants.de",
+          [Names.PROJECT_NAME]: 'hans',
+          [Names.AUTHOR]: 'r.heinen@nanogiants.de',
           [Names.FEATURES]: [Features.JEST],
           [Names.SONARQUBE]: false,
         });
 
         assert.noFile(Filenames.SONARQUBE_PROPERTIES);
         assert.noFile(Filenames.DOCKER_COMPOSE);
-        assert.noFile(
-          path.join(Filenames.SRIPTS_FOLDER, Filenames.SONARQUBE_REPORT_SCRIPT)
-        );
+        assert.noFile(path.join(Filenames.SRIPTS_FOLDER, Filenames.SONARQUBE_REPORT_SCRIPT));
 
         assert.noJSONFileContent(Filenames.PACKAGE_JSON, {
           scripts: {
-            "sonarqube:start": "docker-compose up -d",
-            "sonarqube:stop": "docker-compose down",
-            "sonarqube:report": "sh scripts/report_sonarqube.sh -k",
+            'sonarqube:start': 'docker-compose up -d',
+            'sonarqube:stop': 'docker-compose down',
+            'sonarqube:report': 'sh scripts/report_sonarqube.sh -k',
           },
         });
       });
     });
   });
 
-  describe("lint-staged", () => {
-    describe("given lint-staged selected", () => {
-      describe("given prettier not selected", () => {
-        it("should create lint-staged config", async () => {
+  describe('lint-staged', () => {
+    describe('given lint-staged selected', () => {
+      describe('given prettier not selected', () => {
+        it('should create lint-staged config', async () => {
           await run({
-            [Names.PROJECT_NAME]: "hans",
-            [Names.AUTHOR]: "r.heinen@nanogiants.de",
+            [Names.PROJECT_NAME]: 'hans',
+            [Names.AUTHOR]: 'r.heinen@nanogiants.de',
             [Names.FEATURES]: [Features.ESLINT],
             [Names.LINT_STAGED]: true,
           });
@@ -266,23 +252,23 @@ describe("app", () => {
           assert.file(Filenames.ESLINT_CONFIG);
 
           assert.jsonFileContent(Filenames.PACKAGE_JSON, {
-            "lint-staged": {
-              "src/**/*.{js,ts}": ["eslint . --fix", "git add"],
+            'lint-staged': {
+              'src/**/*.{js,ts}': ['eslint . --fix', 'git add'],
             },
             husky: {
               hooks: {
-                "pre-commit": "lint-staged",
+                'pre-commit': 'lint-staged',
               },
             },
           });
         });
       });
 
-      describe("given prettier also selected", () => {
-        it("should create lint-staged config", async () => {
+      describe('given prettier also selected', () => {
+        it('should create lint-staged config', async () => {
           await run({
-            [Names.PROJECT_NAME]: "hans",
-            [Names.AUTHOR]: "r.heinen@nanogiants.de",
+            [Names.PROJECT_NAME]: 'hans',
+            [Names.AUTHOR]: 'r.heinen@nanogiants.de',
             [Names.FEATURES]: [Features.ESLINT, Features.PRETTIER],
             [Names.LINT_STAGED]: true,
           });
@@ -290,27 +276,23 @@ describe("app", () => {
           assert.file(Filenames.ESLINT_CONFIG);
 
           assert.jsonFileContent(Filenames.PACKAGE_JSON, {
-            "lint-staged": {
-              "src/**/*.{js,ts}": [
-                "eslint . --fix",
-                "prettier --write",
-                "git add",
-              ],
+            'lint-staged': {
+              'src/**/*.{js,ts}': ['eslint . --fix', 'prettier --write', 'git add'],
             },
             husky: {
               hooks: {
-                "pre-commit": "lint-staged",
+                'pre-commit': 'lint-staged',
               },
             },
           });
         });
       });
     });
-    describe("given lint-staged not selected", () => {
-      it("should not create lint-staged config", async () => {
+    describe('given lint-staged not selected', () => {
+      it('should not create lint-staged config', async () => {
         await run({
-          [Names.PROJECT_NAME]: "hans",
-          [Names.AUTHOR]: "r.heinen@nanogiants.de",
+          [Names.PROJECT_NAME]: 'hans',
+          [Names.AUTHOR]: 'r.heinen@nanogiants.de',
           [Names.FEATURES]: [Features.ESLINT],
           [Names.LINT_STAGED]: false,
         });
@@ -318,72 +300,72 @@ describe("app", () => {
         assert.file(Filenames.ESLINT_CONFIG);
 
         assert.noJSONFileContent(Filenames.PACKAGE_JSON, {
-          "lint-staged": "somevalue",
-          husky: "somevalue",
+          'lint-staged': 'somevalue',
+          husky: 'somevalue',
         });
       });
     });
   });
 
-  describe("licenses", () => {
-    describe("given license selected", () => {
-      describe("given fetching licenses failed", () => {
+  describe('licenses', () => {
+    describe('given license selected', () => {
+      describe('given fetching licenses failed', () => {
         beforeEach(() => {
           jest
             // @ts-ignore
-            .spyOn(GithubClient.client, "get")
+            .spyOn(GithubClient.client, 'get')
             .mockImplementation((url: string) => {
-              if (url === "licenses") {
+              if (url === 'licenses') {
                 return Promise.reject();
               }
-              if (url === "licenses/mit") {
-                return Promise.resolve({ data: "test" });
+              if (url === 'licenses/mit') {
+                return Promise.resolve({ data: 'test' });
               }
-              return Promise.resolve({ data: "test" });
+              return Promise.resolve({ data: 'test' });
             });
         });
-        it("should not create license file", async () => {
+        it('should not create license file', async () => {
           await run({
-            [Names.PROJECT_NAME]: "hans",
-            [Names.AUTHOR]: "r.heinen@nanogiants.de",
+            [Names.PROJECT_NAME]: 'hans',
+            [Names.AUTHOR]: 'r.heinen@nanogiants.de',
             [Names.WITH_LICENSE]: true,
           });
 
           assert.noFile(Filenames.LICENSE);
         });
       });
-      describe("given fetching license failed", () => {
+      describe('given fetching license failed', () => {
         beforeEach(() => {
           jest
             // @ts-ignore
-            .spyOn(GithubClient.client, "get")
+            .spyOn(GithubClient.client, 'get')
             .mockImplementation((url: string) => {
-              if (url === "licenses") {
+              if (url === 'licenses') {
                 return Promise.resolve({
-                  data: [{ name: "mit", key: "mit" }],
+                  data: [{ name: 'mit', key: 'mit' }],
                 });
               }
-              if (url === "licenses/mit") {
+              if (url === 'licenses/mit') {
                 return Promise.reject();
               }
-              return Promise.resolve({ data: "test" });
+              return Promise.resolve({ data: 'test' });
             });
         });
-        it("should not create license file", async () => {
+        it('should not create license file', async () => {
           await run({
-            [Names.PROJECT_NAME]: "hans",
-            [Names.AUTHOR]: "r.heinen@nanogiants.de",
+            [Names.PROJECT_NAME]: 'hans',
+            [Names.AUTHOR]: 'r.heinen@nanogiants.de',
             [Names.WITH_LICENSE]: true,
           });
 
           assert.noFile(Filenames.LICENSE);
         });
       });
-      describe("given fetching was successful", () => {
-        it("should create license file", async () => {
+      describe('given fetching was successful', () => {
+        it('should create license file', async () => {
           await run({
-            [Names.PROJECT_NAME]: "hans",
-            [Names.AUTHOR]: "r.heinen@nanogiants.de",
+            [Names.PROJECT_NAME]: 'hans',
+            [Names.AUTHOR]: 'r.heinen@nanogiants.de',
             [Names.WITH_LICENSE]: true,
           });
 
@@ -392,11 +374,11 @@ describe("app", () => {
       });
     });
 
-    describe("given no license selected", () => {
-      it("should not create license file", async () => {
+    describe('given no license selected', () => {
+      it('should not create license file', async () => {
         await run({
-          [Names.PROJECT_NAME]: "hans",
-          [Names.AUTHOR]: "r.heinen@nanogiants.de",
+          [Names.PROJECT_NAME]: 'hans',
+          [Names.AUTHOR]: 'r.heinen@nanogiants.de',
           [Names.WITH_LICENSE]: false,
         });
 
@@ -405,34 +387,34 @@ describe("app", () => {
     });
   });
 
-  describe("changelog", () => {
-    describe("given changelog selected", () => {
-      it("should create changelog script", async () => {
+  describe('changelog', () => {
+    describe('given changelog selected', () => {
+      it('should create changelog script', async () => {
         await run({
-          [Names.PROJECT_NAME]: "hans",
-          [Names.AUTHOR]: "r.heinen@nanogiants.de",
+          [Names.PROJECT_NAME]: 'hans',
+          [Names.AUTHOR]: 'r.heinen@nanogiants.de',
           [Names.CHANGELOG]: true,
         });
 
         assert.JSONFileContent(Filenames.PACKAGE_JSON, {
           scripts: {
-            changelog: "conventional-changelog -p angular -i CHANGELOG.md -s",
+            changelog: 'conventional-changelog -p angular -i CHANGELOG.md -s',
           },
         });
       });
     });
 
-    describe("given changelog not selected", () => {
-      it("should not create changelog script", async () => {
+    describe('given changelog not selected', () => {
+      it('should not create changelog script', async () => {
         await run({
-          [Names.PROJECT_NAME]: "hans",
-          [Names.AUTHOR]: "r.heinen@nanogiants.de",
+          [Names.PROJECT_NAME]: 'hans',
+          [Names.AUTHOR]: 'r.heinen@nanogiants.de',
           [Names.CHANGELOG]: false,
         });
 
         assert.noJSONFileContent(Filenames.PACKAGE_JSON, {
           scripts: {
-            changelog: "conventional-changelog -p angular -i CHANGELOG.md -s",
+            changelog: 'conventional-changelog -p angular -i CHANGELOG.md -s',
           },
         });
       });

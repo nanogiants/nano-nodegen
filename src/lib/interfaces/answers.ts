@@ -1,5 +1,5 @@
-import { Features } from "../enums/features";
-import { Names } from "../enums/names";
+import { Features } from '../enums/features';
+import { Names } from '../enums/names';
 
 export interface Answers {
   [Names.PROJECT_NAME]: string;
