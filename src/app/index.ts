@@ -18,9 +18,9 @@ const defaultAnswers: Answers = {
   [Names.FEATURES]: [],
   [Names.SONARQUBE]: false,
   [Names.LINT_STAGED]: false,
-  [Names.SONARQUBE_TOKEN]: null,
   [Names.WITH_LICENSE]: true,
   [Names.LICENSE]: "mit",
+  [Names.CHANGELOG]: true,
 };
 
 export default class extends Generator {
@@ -103,6 +103,15 @@ export default class extends Generator {
         chalk.yellow("Error while fetching licenses, skipping...");
       }
     }
+    const changeLogAnswer = await this.prompt([
+      {
+        type: "confirm",
+        name: Names.CHANGELOG,
+        message: Messages.CHANGELOG,
+        default: defaultAnswers[Names.CHANGELOG],
+      },
+    ]);
+    this.answers[Names.CHANGELOG] = changeLogAnswer[Names.CHANGELOG];
   }
 
   writing(): void {
@@ -170,6 +179,10 @@ export default class extends Generator {
       this.composeWith(require.resolve("../license"), {
         license: this.answers.license,
       });
+    }
+
+    if (this.answers[Names.CHANGELOG]) {
+      this.composeWith(require.resolve("../changelog"));
     }
   }
 

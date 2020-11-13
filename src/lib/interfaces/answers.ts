@@ -1,5 +1,5 @@
-import { Features } from '../enums/features';
-import { Names } from '../enums/names';
+import { Features } from "../enums/features";
+import { Names } from "../enums/names";
 
 export interface Answers {
   [Names.PROJECT_NAME]: string;
@@ -7,7 +7,7 @@ export interface Answers {
   [Names.FEATURES]: Features[];
   [Names.SONARQUBE]: boolean;
   [Names.LINT_STAGED]: boolean;
-  [Names.SONARQUBE_TOKEN]: string | null;
   [Names.WITH_LICENSE]: boolean;
   [Names.LICENSE]: string;
+  [Names.CHANGELOG]: boolean;
 }
