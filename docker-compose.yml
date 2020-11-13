@@ -1,10 +1,10 @@
-version: "3"
+version: '3'
 
 services:
   sonarqube:
     image: sonarqube
     ports:
-      - "9000:9000"
+      - '9000:9000'
     networks:
       - sonarnet
     environment:
@@ -18,7 +18,7 @@ services:
       - sonarqube_bundled-plugins:/opt/sonarqube/lib/bundled-plugins
     restart: always
     depends_on:
-        - postgres
+      - postgres
 
   postgres:
     image: postgres
@@ -30,7 +30,7 @@ services:
     volumes:
       - postgresql:/var/lib/postgresql
       - postgresql_data:/var/lib/postgresql/data
-    restart: always  
+    restart: always
 
 networks:
   sonarnet:

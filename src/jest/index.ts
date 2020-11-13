@@ -14,14 +14,9 @@ module.exports = class extends Generator {
   writing() {
     this.fs.copy(
       this.templatePath(Filenames.JEST_TEST),
-      this.destinationPath(
-        path.join(Filenames.SRC_FOLDER, 'lib', Filenames.JEST_TEST)
-      )
+      this.destinationPath(path.join(Filenames.SRC_FOLDER, 'lib', Filenames.JEST_TEST)),
     );
-    this.fs.copy(
-      this.templatePath(Filenames.JEST_CONFIG),
-      this.destinationPath(Filenames.JEST_CONFIG)
-    );
+    this.fs.copy(this.templatePath(Filenames.JEST_CONFIG), this.destinationPath(Filenames.JEST_CONFIG));
 
     this.fs.extendJSON(this.destinationPath(Filenames.PACKAGE_JSON), {
       scripts: {

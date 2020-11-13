@@ -1,3 +1,4 @@
+import chalk from 'chalk';
 import path from 'path';
 import isValidPkgJsonName from 'validate-npm-package-name';
 import Generator from 'yeoman-generator';
@@ -17,16 +18,16 @@ const defaultAnswers: Answers = {
   [Names.FEATURES]: [],
   [Names.SONARQUBE]: false,
   [Names.LINT_STAGED]: false,
-  [Names.SONARQUBE_TOKEN]: null,
   [Names.WITH_LICENSE]: true,
   [Names.LICENSE]: 'mit',
+  [Names.CHANGELOG]: true,
 };
 
 export default class extends Generator {
-  answers: Answers = defaultAnswers;
+  answers!: Answers;
 
   async prompting(): Promise<void> {
-    const answers = await this.prompt([
+    this.answers = await this.prompt([
       {
         type: 'input',
         name: Names.PROJECT_NAME,
@@ -68,13 +69,6 @@ export default class extends Generator {
         when: (answers) => withFeature(answers, Features.JEST),
       },
       {
-        type: 'input',
-        name: Names.SONARQUBE_TOKEN,
-        message: Messages.SONARQUBE_TOKEN,
-        default: defaultAnswers[Names.SONARQUBE_TOKEN],
-        when: (answers) => answers[Names.SONARQUBE],
-      },
-      {
         type: 'confirm',
         name: Names.LINT_STAGED,
         message: Messages.LINT_STAGED,
@@ -88,8 +82,7 @@ export default class extends Generator {
         default: defaultAnswers['with-license'],
       },
     ]);
-    this.answers = { ...defaultAnswers, ...answers };
-    if (answers[Names.WITH_LICENSE]) {
+    if (this.answers[Names.WITH_LICENSE]) {
       try {
         const licenses = await GithubClient.getLicenses();
         const licenseAnswer = await this.prompt([
@@ -107,15 +100,22 @@ export default class extends Generator {
         this.answers[Names.LICENSE] = licenseAnswer[Names.LICENSE];
       } catch (error) {
         this.answers[Names.WITH_LICENSE] = false;
-        console.log('Error while fetching licenses, skipping...');
+        chalk.yellow('Error while fetching licenses, skipping...');
       }
     }
+    const changeLogAnswer = await this.prompt([
+      {
+        type: 'confirm',
+        name: Names.CHANGELOG,
+        message: Messages.CHANGELOG,
+        default: defaultAnswers[Names.CHANGELOG],
+      },
+    ]);
+    this.answers[Names.CHANGELOG] = changeLogAnswer[Names.CHANGELOG];
   }
 
   writing(): void {
-    this.destinationRoot(
-      path.join(this.destinationRoot(), '/', this.answers[Names.PROJECT_NAME])
-    );
+    this.destinationRoot(path.join(this.destinationRoot(), '/', this.answers[Names.PROJECT_NAME]));
 
     [
       Filenames.TS_CONFIG,
@@ -126,9 +126,7 @@ export default class extends Generator {
     ].forEach((fileName: Filenames) => {
       this.fs.copy(
         this.templatePath(fileName),
-        fileName === Filenames.GIT_IGNORE
-          ? this.destinationPath(`.${fileName}`)
-          : this.destinationPath(fileName)
+        fileName === Filenames.GIT_IGNORE ? this.destinationPath(`.${fileName}`) : this.destinationPath(fileName),
       );
     });
 
@@ -145,9 +143,9 @@ export default class extends Generator {
       author: this.answers.author,
       devDependencies: {
         '@types/node': rootPkg.devDependencies['@types/node'],
-        nodemon: '^2.0.4',
-        rimraf: '^3.0.2',
-        'ts-node': '^8.10.2',
+        nodemon: rootPkg.devDependencies.nodemon,
+        rimraf: rootPkg.devDependencies.rimraf,
+        'ts-node': rootPkg.devDependencies['ts-node'],
         typescript: rootPkg.devDependencies.typescript,
       },
     });
@@ -164,9 +162,7 @@ export default class extends Generator {
     }
 
     if (this.answers[Names.SONARQUBE]) {
-      this.composeWith(require.resolve('../sonarqube'), {
-        token: this.answers[Names.SONARQUBE_TOKEN],
-      });
+      this.composeWith(require.resolve('../sonarqube'));
     }
 
     if (this.answers[Names.LINT_STAGED]) {
@@ -179,6 +175,10 @@ export default class extends Generator {
       this.composeWith(require.resolve('../license'), {
         license: this.answers.license,
       });
+    }
+
+    if (this.answers[Names.CHANGELOG]) {
+      this.composeWith(require.resolve('../changelog'));
     }
   }
 
