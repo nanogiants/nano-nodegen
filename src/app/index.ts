@@ -1,15 +1,12 @@
-import chalk from 'chalk';
 import path from 'path';
-import Generator from 'yeoman-generator';
+import Generator, { Answers } from 'yeoman-generator';
 
 import { Features } from '../lib/enums/features';
 import { Filenames } from '../lib/enums/filenames';
 import { Messages } from '../lib/enums/messages';
 import { Names } from '../lib/enums/names';
 import { withFeature, validatePackageJsonName } from '../lib/helpers';
-import { GithubClient } from '../lib/helpers/github.client';
 import rootPkg from '../lib/helpers/package';
-import { Answers } from '../lib/interfaces/answers';
 
 const defaultAnswers: Answers = {
   [Names.PROJECT_NAME]: Names.PROJECT_NAME,
@@ -60,57 +57,7 @@ export default class extends Generator {
           },
         ],
       },
-      {
-        type: 'confirm',
-        name: Names.SONARQUBE,
-        message: Messages.SONARQUBE,
-        default: defaultAnswers.sonarqube,
-        when: (answers) => withFeature(answers, Features.JEST),
-      },
-      {
-        type: 'confirm',
-        name: Names.LINT_STAGED,
-        message: Messages.LINT_STAGED,
-        default: defaultAnswers[Names.LINT_STAGED],
-        when: (answers) => withFeature(answers, Features.ESLINT),
-      },
-      {
-        type: 'confirm',
-        name: Names.WITH_LICENSE,
-        message: Messages.WITH_LICENSE,
-        default: defaultAnswers['with-license'],
-      },
     ]);
-    if (this.answers[Names.WITH_LICENSE]) {
-      try {
-        const licenses = await GithubClient.getLicenses();
-        const licenseAnswer = await this.prompt([
-          {
-            type: 'list',
-            name: Names.LICENSE,
-            message: Messages.LICENSE,
-            default: defaultAnswers[Names.LICENSE],
-            choices: licenses.map((l: any) => ({
-              name: l.name,
-              value: l.key,
-            })),
-          },
-        ]);
-        this.answers[Names.LICENSE] = licenseAnswer[Names.LICENSE];
-      } catch (error) {
-        this.answers[Names.WITH_LICENSE] = false;
-        chalk.yellow('Error while fetching licenses, skipping...');
-      }
-    }
-    const changeLogAnswer = await this.prompt([
-      {
-        type: 'confirm',
-        name: Names.CHANGELOG,
-        message: Messages.CHANGELOG,
-        default: defaultAnswers[Names.CHANGELOG],
-      },
-    ]);
-    this.answers[Names.CHANGELOG] = changeLogAnswer[Names.CHANGELOG];
   }
 
   writing(): void {
@@ -149,36 +96,27 @@ export default class extends Generator {
       },
     });
 
-    if (withFeature(this.answers, Features.ESLINT)) {
-      this.composeWith(require.resolve('../eslint'), {});
-    }
-    if (withFeature(this.answers, Features.PRETTIER)) {
-      this.composeWith(require.resolve('../prettier'), {});
-    }
-
     if (withFeature(this.answers, Features.JEST)) {
-      this.composeWith(require.resolve('../jest'), {});
-    }
-
-    if (this.answers[Names.SONARQUBE]) {
+      this.composeWith(require.resolve('../jest'));
       this.composeWith(require.resolve('../sonarqube'));
     }
 
-    if (this.answers[Names.LINT_STAGED]) {
+    if (withFeature(this.answers, Features.PRETTIER)) {
+      this.composeWith(require.resolve('../prettier'));
+    }
+
+    if (withFeature(this.answers, Features.ESLINT)) {
+      this.composeWith(require.resolve('../eslint'));
       this.composeWith(require.resolve('../lintstaged'), {
         withPrettier: withFeature(this.answers, Features.PRETTIER),
       });
     }
 
-    if (this.answers[Names.WITH_LICENSE]) {
-      this.composeWith(require.resolve('../license'), {
-        license: this.answers.license,
-      });
-    }
+    this.composeWith(require.resolve('../changelog'));
 
-    if (this.answers[Names.CHANGELOG]) {
-      this.composeWith(require.resolve('../changelog'));
-    }
+    this.composeWith(require.resolve('../license'), {
+      license: this.answers.license,
+    });
   }
 
   install(): void {
