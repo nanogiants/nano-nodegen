@@ -398,7 +398,7 @@ describe('app', () => {
 
         assert.JSONFileContent(Filenames.PACKAGE_JSON, {
           scripts: {
-            changelog: 'conventional-changelog -p angular -i CHANGELOG.md -s',
+            changelog: 'conventional-changelog -p angular -i CHANGELOG.md -s -r 0',
           },
         });
       });
@@ -414,7 +414,7 @@ describe('app', () => {
 
         assert.noJSONFileContent(Filenames.PACKAGE_JSON, {
           scripts: {
-            changelog: 'conventional-changelog -p angular -i CHANGELOG.md -s',
+            changelog: 'conventional-changelog -p angular -i CHANGELOG.md -s -r 0',
           },
         });
       });

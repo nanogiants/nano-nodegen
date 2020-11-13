@@ -7,7 +7,7 @@ module.exports = class extends Generator {
   writing() {
     const pkgJson = {
       scripts: {
-        changelog: 'conventional-changelog -p angular -i CHANGELOG.md -s',
+        changelog: 'conventional-changelog -p angular -i CHANGELOG.md -s -r 0',
       },
       devDependencies: {
         'conventional-changelog-cli': rootPkg.devDependencies['conventional-changelog-cli'],
