@@ -151,6 +151,7 @@ describe('app', () => {
 
         assert.file(Filenames.JEST_CONFIG);
         assert.file(path.join(Filenames.SRC_FOLDER, 'lib', Filenames.JEST_TEST));
+        assert.fileContent(Filenames.README, '### Jest');
 
         assert.jsonFileContent(Filenames.PACKAGE_JSON, {
           scripts: {
@@ -204,7 +205,7 @@ describe('app', () => {
         assert.file(Filenames.SONARQUBE_PROPERTIES);
         assert.file(Filenames.DOCKER_COMPOSE);
         assert.file(path.join(Filenames.SRIPTS_FOLDER, Filenames.SONARQUBE_REPORT_SCRIPT));
-
+        assert.fileContent(Filenames.README, '### Sonarqube');
         assert.jsonFileContent(Filenames.PACKAGE_JSON, {
           scripts: {
             'sonarqube:start': 'docker-compose up -d',
@@ -250,7 +251,7 @@ describe('app', () => {
           });
 
           assert.file(Filenames.ESLINT_CONFIG);
-
+          assert.fileContent(Filenames.README, '### Husky and Lint-Staged');
           assert.jsonFileContent(Filenames.PACKAGE_JSON, {
             'lint-staged': {
               'src/**/*.{js,ts}': ['eslint . --fix', 'git add'],
@@ -274,7 +275,7 @@ describe('app', () => {
           });
 
           assert.file(Filenames.ESLINT_CONFIG);
-
+          assert.fileContent(Filenames.README, '### Husky and Lint-Staged');
           assert.jsonFileContent(Filenames.PACKAGE_JSON, {
             'lint-staged': {
               'src/**/*.{js,ts}': ['eslint . --fix', 'prettier --write', 'git add'],
@@ -395,6 +396,8 @@ describe('app', () => {
           [Names.AUTHOR]: 'r.heinen@nanogiants.de',
           [Names.CHANGELOG]: true,
         });
+
+        assert.fileContent(Filenames.README, '### Changelog');
 
         assert.JSONFileContent(Filenames.PACKAGE_JSON, {
           scripts: {

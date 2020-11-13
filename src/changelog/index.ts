@@ -5,6 +5,8 @@ import rootPkg from '../lib/helpers/package';
 
 module.exports = class extends Generator {
   writing() {
+    this.fs.append(this.destinationPath(Filenames.README), this.fs.read(this.templatePath(Filenames.README)));
+
     const pkgJson = {
       scripts: {
         'init-changelog': 'conventional-changelog -p angular -i CHANGELOG.md -s -r 0',

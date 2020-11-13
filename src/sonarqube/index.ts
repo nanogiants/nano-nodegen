@@ -5,6 +5,8 @@ import { Filenames } from '../lib/enums/filenames';
 
 module.exports = class extends Generator {
   writing() {
+    this.fs.append(this.destinationPath(Filenames.README), this.fs.read(this.templatePath(Filenames.README)));
+
     [Filenames.SONARQUBE_PROPERTIES, Filenames.DOCKER_COMPOSE].forEach((filename: Filenames) => {
       this.fs.copy(this.templatePath(filename), this.destinationPath(filename));
     });

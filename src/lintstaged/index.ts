@@ -11,6 +11,8 @@ module.exports = class extends Generator {
   }
 
   writing() {
+    this.fs.append(this.destinationPath(Filenames.README), this.fs.read(this.templatePath(Filenames.README)));
+
     const lintStagedCommands = ['eslint . --fix', 'git add'];
 
     // add prettier command to lint-staged

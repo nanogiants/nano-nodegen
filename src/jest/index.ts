@@ -12,6 +12,8 @@ module.exports = class extends Generator {
   }
 
   writing() {
+    this.fs.append(this.destinationPath(Filenames.README), this.fs.read(this.templatePath(Filenames.README)));
+
     this.fs.copy(
       this.templatePath(Filenames.JEST_TEST),
       this.destinationPath(path.join(Filenames.SRC_FOLDER, 'lib', Filenames.JEST_TEST)),

@@ -81,6 +81,16 @@ or
 sh ./scripts/report_sonarqube.sh -k YOUR_KEY
 ```
 
+#### Changelog
+
+If Changelog gets selected you can create a changelog with angular commit guidelines when you update your npm version.
+Initially you need to call
+```bash
+npm run init-changelog
+```
+once, to create the initial changelog file.  
+It then gets updated everytime you update your version.
+
 ## Contributing
 
 To contribute please fork the repository, create a new branch to make changes on and create a pull request into the develop branch of this repository.  

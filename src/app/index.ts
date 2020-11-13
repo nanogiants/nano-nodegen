@@ -166,7 +166,7 @@ export default class extends Generator {
     }
 
     if (this.answers[Names.LINT_STAGED]) {
-      this.composeWith(require.resolve('../lint-staged'), {
+      this.composeWith(require.resolve('../lintstaged'), {
         withPrettier: withFeature(this.answers, Features.PRETTIER),
       });
     }
