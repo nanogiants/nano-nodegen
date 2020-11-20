@@ -38,7 +38,7 @@ jobs:
       deploy:
         - provider: pages
           skip-cleanup: true
-          local_dir: coverage
+          local_dir: coverage/lcov-report
           github-token: $GITHUB_TOKEN  # Set in the settings page of your repository, as a secure variable
           repo: nanogiants/nano-nodegen
           keep-history: true
