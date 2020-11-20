@@ -7,4 +7,5 @@ export enum Names {
   LINT_STAGED = 'lint-staged',
   WITH_LICENSE = 'with-license',
   LICENSE = 'license',
+  CHANGELOG = 'changelog',
 }

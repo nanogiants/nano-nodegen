@@ -7,10 +7,8 @@ module.exports = class extends Generator {
   writing() {
     const pkgJson = {
       devDependencies: {
-        '@typescript-eslint/eslint-plugin':
-          rootPkg.devDependencies['@typescript-eslint/eslint-plugin'],
-        '@typescript-eslint/parser':
-          rootPkg.devDependencies['@typescript-eslint/parser'],
+        '@typescript-eslint/eslint-plugin': rootPkg.devDependencies['@typescript-eslint/eslint-plugin'],
+        '@typescript-eslint/parser': rootPkg.devDependencies['@typescript-eslint/parser'],
         eslint: rootPkg.devDependencies.eslint,
         'eslint-plugin-import': rootPkg.devDependencies['eslint-plugin-import'],
       },
@@ -18,9 +16,6 @@ module.exports = class extends Generator {
 
     this.fs.extendJSON(this.destinationPath(Filenames.PACKAGE_JSON), pkgJson);
 
-    this.fs.copy(
-      this.templatePath(Filenames.ESLINT_CONFIG),
-      this.destinationPath(Filenames.ESLINT_CONFIG)
-    );
+    this.fs.copy(this.templatePath(Filenames.ESLINT_CONFIG), this.destinationPath(Filenames.ESLINT_CONFIG));
   }
 };

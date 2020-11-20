@@ -1,10 +1,15 @@
 jobs:
   include:
     - stage: test
+      name: "Unit Tests"  
       language: node_js
-      if: type = push AND (NOT (branch = master))
+      if: type IN (pull_request, push) AND (NOT (branch = master))
       node_js:
-        - '12'
+      - 14
+      - 13
+      - 12
+      - 11
+      - 10
       install:
         - npm i
       script:
@@ -16,14 +21,14 @@ jobs:
         email: false
 
     - stage: build and deploy
+      name: "Build and deploy(on push)"
       language: node_js
       if: type IN (pull_request, push) AND branch = master
-      node_js:
-        - '12'
+      node_js: 12
       install:
         - npm i
       script:
-        - npm run test
+        - npm run test:cov
         - npm run build
       cache:
         directories:
@@ -31,6 +36,15 @@ jobs:
       notifications:
         email: false
       deploy:
+        - provider: pages
+          skip-cleanup: true
+          local_dir: coverage
+          github-token: $GITHUB_TOKEN  # Set in the settings page of your repository, as a secure variable
+          repo: nanogiants/nano-nodegen
+          keep-history: true
+          target-branch: gh-pages
+          on:
+            type: push
         - provider: npm
           email: 'r.heinen@nanogiants.de'
           api_key: $NPM_TOKEN

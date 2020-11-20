@@ -1,50 +1,36 @@
 import path from 'path';
-import isValidPkgJsonName from 'validate-npm-package-name';
-import Generator from 'yeoman-generator';
+import Generator, { Answers } from 'yeoman-generator';
 
 import { Features } from '../lib/enums/features';
 import { Filenames } from '../lib/enums/filenames';
 import { Messages } from '../lib/enums/messages';
 import { Names } from '../lib/enums/names';
-import { withFeature } from '../lib/helpers';
-import { GithubClient } from '../lib/helpers/github.client';
+import { withFeature, validatePackageJsonName } from '../lib/helpers';
 import rootPkg from '../lib/helpers/package';
-import { Answers } from '../lib/interfaces/answers';
-
-const defaultAnswers: Answers = {
-  [Names.PROJECT_NAME]: Names.PROJECT_NAME,
-  [Names.AUTHOR]: Names.AUTHOR,
-  [Names.FEATURES]: [],
-  [Names.SONARQUBE]: false,
-  [Names.LINT_STAGED]: false,
-  [Names.SONARQUBE_TOKEN]: null,
-  [Names.WITH_LICENSE]: true,
-  [Names.LICENSE]: 'mit',
-};
 
 export default class extends Generator {
-  answers: Answers = defaultAnswers;
+  answers!: Answers;
 
   async prompting(): Promise<void> {
-    const answers = await this.prompt([
+    this.answers = await this.prompt([
       {
         type: 'input',
         name: Names.PROJECT_NAME,
         message: Messages.PROJECT_NAME,
-        validate: (answer) => isValidPkgJsonName(answer).validForNewPackages,
-        default: defaultAnswers.projectname,
+        validate: validatePackageJsonName,
+        default: Names.PROJECT_NAME,
       },
       {
         type: 'input',
         name: Names.AUTHOR,
         message: Messages.AUTHOR,
-        default: defaultAnswers.author,
+        default: Names.AUTHOR,
       },
       {
         type: 'checkbox',
         name: Names.FEATURES,
         message: Messages.FEATURES,
-        default: defaultAnswers.features,
+        default: [],
         choices: [
           {
             name: Features.ESLINT,
@@ -60,62 +46,11 @@ export default class extends Generator {
           },
         ],
       },
-      {
-        type: 'confirm',
-        name: Names.SONARQUBE,
-        message: Messages.SONARQUBE,
-        default: defaultAnswers.sonarqube,
-        when: (answers) => withFeature(answers, Features.JEST),
-      },
-      {
-        type: 'input',
-        name: Names.SONARQUBE_TOKEN,
-        message: Messages.SONARQUBE_TOKEN,
-        default: defaultAnswers[Names.SONARQUBE_TOKEN],
-        when: (answers) => answers[Names.SONARQUBE],
-      },
-      {
-        type: 'confirm',
-        name: Names.LINT_STAGED,
-        message: Messages.LINT_STAGED,
-        default: defaultAnswers[Names.LINT_STAGED],
-        when: (answers) => withFeature(answers, Features.ESLINT),
-      },
-      {
-        type: 'confirm',
-        name: Names.WITH_LICENSE,
-        message: Messages.WITH_LICENSE,
-        default: defaultAnswers['with-license'],
-      },
     ]);
-    this.answers = { ...defaultAnswers, ...answers };
-    if (answers[Names.WITH_LICENSE]) {
-      try {
-        const licenses = await GithubClient.getLicenses();
-        const licenseAnswer = await this.prompt([
-          {
-            type: 'list',
-            name: Names.LICENSE,
-            message: Messages.LICENSE,
-            default: defaultAnswers[Names.LICENSE],
-            choices: licenses.map((l: any) => ({
-              name: l.name,
-              value: l.key,
-            })),
-          },
-        ]);
-        this.answers[Names.LICENSE] = licenseAnswer[Names.LICENSE];
-      } catch (error) {
-        this.answers[Names.WITH_LICENSE] = false;
-        console.log('Error while fetching licenses, skipping...');
-      }
-    }
   }
 
   writing(): void {
-    this.destinationRoot(
-      path.join(this.destinationRoot(), '/', this.answers[Names.PROJECT_NAME])
-    );
+    this.destinationRoot(path.join(this.destinationRoot(), '/', this.answers[Names.PROJECT_NAME]));
 
     [
       Filenames.TS_CONFIG,
@@ -126,9 +61,7 @@ export default class extends Generator {
     ].forEach((fileName: Filenames) => {
       this.fs.copy(
         this.templatePath(fileName),
-        fileName === Filenames.GIT_IGNORE
-          ? this.destinationPath(`.${fileName}`)
-          : this.destinationPath(fileName)
+        fileName === Filenames.GIT_IGNORE ? this.destinationPath(`.${fileName}`) : this.destinationPath(fileName),
       );
     });
 
@@ -145,41 +78,34 @@ export default class extends Generator {
       author: this.answers.author,
       devDependencies: {
         '@types/node': rootPkg.devDependencies['@types/node'],
-        nodemon: '^2.0.4',
-        rimraf: '^3.0.2',
-        'ts-node': '^8.10.2',
+        nodemon: rootPkg.devDependencies.nodemon,
+        rimraf: rootPkg.devDependencies.rimraf,
+        'ts-node': rootPkg.devDependencies['ts-node'],
         typescript: rootPkg.devDependencies.typescript,
       },
     });
 
-    if (withFeature(this.answers, Features.ESLINT)) {
-      this.composeWith(require.resolve('../eslint'), {});
-    }
-    if (withFeature(this.answers, Features.PRETTIER)) {
-      this.composeWith(require.resolve('../prettier'), {});
-    }
-
     if (withFeature(this.answers, Features.JEST)) {
-      this.composeWith(require.resolve('../jest'), {});
+      this.composeWith(require.resolve('../jest'));
+      this.composeWith(require.resolve('../sonarqube'));
     }
 
-    if (this.answers[Names.SONARQUBE]) {
-      this.composeWith(require.resolve('../sonarqube'), {
-        token: this.answers[Names.SONARQUBE_TOKEN],
-      });
+    if (withFeature(this.answers, Features.PRETTIER)) {
+      this.composeWith(require.resolve('../prettier'));
     }
 
-    if (this.answers[Names.LINT_STAGED]) {
-      this.composeWith(require.resolve('../lint-staged'), {
+    if (withFeature(this.answers, Features.ESLINT)) {
+      this.composeWith(require.resolve('../eslint'));
+      this.composeWith(require.resolve('../lintstaged'), {
         withPrettier: withFeature(this.answers, Features.PRETTIER),
       });
     }
 
-    if (this.answers[Names.WITH_LICENSE]) {
-      this.composeWith(require.resolve('../license'), {
-        license: this.answers.license,
-      });
-    }
+    this.composeWith(require.resolve('../changelog'));
+
+    this.composeWith(require.resolve('../license'), {
+      license: this.answers.license,
+    });
   }
 
   install(): void {

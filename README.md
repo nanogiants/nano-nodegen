@@ -20,6 +20,7 @@ These commands will prompt you with some questions from which your project gets 
 ├── .gitignore # files ignored by git
 ├── .prettierrc.js # prettier config
 ├── LICENSE.md
+├── CHANGELOG.md
 ├── README.md
 ├── docker-compose.yml # compose file for sonarqube and postgress containers
 ├── jest.config.js # config for your jest testing library
@@ -81,6 +82,16 @@ or
 sh ./scripts/report_sonarqube.sh -k YOUR_KEY
 ```
 
+#### Changelog
+
+If Changelog gets selected you can create a changelog with angular commit guidelines when you update your npm version.
+Initially you need to call
+```bash
+npm run init-changelog
+```
+once, to create the initial changelog file.  
+It then gets updated everytime you update your version.
+
 ## Contributing
 
 To contribute please fork the repository, create a new branch to make changes on and create a pull request into the develop branch of this repository.  
@@ -92,4 +103,8 @@ For feature requests please use the issuetracker and specify your exact needs.
 
 ## License
 
-[MIT](https://github.com/nanogiants/nano-nodegen/blob/develop/LICENSE.md)
+[MIT](https://github.com/nanogiants/nano-nodegen/blob/master/LICENSE.md)
+
+## Changelog
+
+[MIT](https://github.com/nanogiants/nano-nodegen/blob/master/CHANGELOG.md)
