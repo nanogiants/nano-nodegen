@@ -1,6 +1,5 @@
 ![Travis (.com) branch](https://img.shields.io/travis/com/nanogiants/nano-nodegen/master)
 ![npm (scoped)](https://img.shields.io/npm/v/@nanogiants/generator-nano-nodegen)
-[![Coverage Status](https://coveralls.io/repos/github/nanogiants/nano-nodegen/badge.svg?branch=master)](https://coveralls.io/github/nanogiants/nano-nodegen?branch=master)  
 
 # nano-nodegen
 This package contains a yeoman generator for scaffolding node apps with typescript support.
