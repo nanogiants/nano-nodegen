@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1605858668318" clover="3.2.0">
+  <project timestamp="1605858668318" name="All files">
+    <metrics statements="168" coveredstatements="168" conditionals="28" coveredconditionals="28" methods="30" coveredmethods="30" elements="226" coveredelements="226" complexity="0" loc="168" ncloc="168" packages="11" files="16" classes="16"/>
+    <package name="app">
+      <metrics statements="26" coveredstatements="26" conditionals="8" coveredconditionals="8" methods="4" coveredmethods="4"/>
+      <file name="index.ts" path="/home/travis/build/nanogiants/nano-nodegen/src/app/index.ts">
+        <metrics statements="26" coveredstatements="26" conditionals="8" coveredconditionals="8" methods="4" coveredmethods="4"/>
+        <line num="1" count="7" type="stmt"/>
+        <line num="2" count="7" type="stmt"/>
+        <line num="4" count="7" type="stmt"/>
+        <line num="5" count="7" type="stmt"/>
+        <line num="6" count="7" type="stmt"/>
+        <line num="7" count="7" type="stmt"/>
+        <line num="8" count="7" type="stmt"/>
+        <line num="9" count="7" type="stmt"/>
+        <line num="11" count="7" type="stmt"/>
+        <line num="15" count="16" type="stmt"/>
+        <line num="53" count="16" type="stmt"/>
+        <line num="55" count="16" type="stmt"/>
+        <line num="62" count="80" type="stmt"/>
+        <line num="68" count="16" type="stmt"/>
+        <line num="88" count="16" type="cond" truecount="2" falsecount="0"/>
+        <line num="89" count="3" type="stmt"/>
+        <line num="90" count="3" type="stmt"/>
+        <line num="93" count="16" type="cond" truecount="2" falsecount="0"/>
+        <line num="94" count="1" type="stmt"/>
+        <line num="97" count="16" type="cond" truecount="2" falsecount="0"/>
+        <line num="98" count="4" type="stmt"/>
+        <line num="99" count="4" type="stmt"/>
+        <line num="104" count="16" type="stmt"/>
+        <line num="106" count="16" type="stmt"/>
+        <line num="112" count="16" type="stmt"/>
+        <line num="113" count="16" type="stmt"/>
+      </file>
+    </package>
+    <package name="changelog">
+      <metrics statements="11" coveredstatements="11" conditionals="2" coveredconditionals="2" methods="2" coveredmethods="2"/>
+      <file name="index.ts" path="/home/travis/build/nanogiants/nano-nodegen/src/changelog/index.ts">
+        <metrics statements="11" coveredstatements="11" conditionals="2" coveredconditionals="2" methods="2" coveredmethods="2"/>
+        <line num="1" count="7" type="stmt"/>
+        <line num="3" count="7" type="stmt"/>
+        <line num="4" count="7" type="stmt"/>
+        <line num="5" count="7" type="stmt"/>
+        <line num="6" count="7" type="stmt"/>
+        <line num="8" count="7" type="stmt"/>
+        <line num="12" count="16" type="stmt"/>
+        <line num="21" count="16" type="cond" truecount="2" falsecount="0"/>
+        <line num="22" count="15" type="stmt"/>
+        <line num="24" count="15" type="stmt"/>
+        <line num="34" count="15" type="stmt"/>
+      </file>
+    </package>
+    <package name="eslint">
+      <metrics statements="7" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+      <file name="index.ts" path="/home/travis/build/nanogiants/nano-nodegen/src/eslint/index.ts">
+        <metrics statements="7" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="1" count="2" type="stmt"/>
+        <line num="3" count="2" type="stmt"/>
+        <line num="4" count="2" type="stmt"/>
+        <line num="6" count="2" type="stmt"/>
+        <line num="8" count="4" type="stmt"/>
+        <line num="17" count="4" type="stmt"/>
+        <line num="19" count="4" type="stmt"/>
+      </file>
+    </package>
+    <package name="jest">
+      <metrics statements="9" coveredstatements="9" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+      <file name="index.ts" path="/home/travis/build/nanogiants/nano-nodegen/src/jest/index.ts">
+        <metrics statements="9" coveredstatements="9" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="1" count="2" type="stmt"/>
+        <line num="2" count="2" type="stmt"/>
+        <line num="4" count="2" type="stmt"/>
+        <line num="5" count="2" type="stmt"/>
+        <line num="7" count="2" type="stmt"/>
+        <line num="9" count="3" type="stmt"/>
+        <line num="11" count="3" type="stmt"/>
+        <line num="15" count="3" type="stmt"/>
+        <line num="17" count="3" type="stmt"/>
+      </file>
+    </package>
+    <package name="lib.enums">
+      <metrics statements="40" coveredstatements="40" conditionals="8" coveredconditionals="8" methods="4" coveredmethods="4"/>
+      <file name="features.ts" path="/home/travis/build/nanogiants/nano-nodegen/src/lib/enums/features.ts">
+        <metrics statements="4" coveredstatements="4" conditionals="2" coveredconditionals="2" methods="1" coveredmethods="1"/>
+        <line num="1" count="7" type="cond" truecount="2" falsecount="0"/>
+        <line num="2" count="7" type="stmt"/>
+        <line num="3" count="7" type="stmt"/>
+        <line num="4" count="7" type="stmt"/>
+      </file>
+      <file name="filenames.ts" path="/home/travis/build/nanogiants/nano-nodegen/src/lib/enums/filenames.ts">
+        <metrics statements="16" coveredstatements="16" conditionals="2" coveredconditionals="2" methods="1" coveredmethods="1"/>
+        <line num="1" count="8" type="cond" truecount="2" falsecount="0"/>
+        <line num="2" count="8" type="stmt"/>
+        <line num="3" count="8" type="stmt"/>
+        <line num="4" count="8" type="stmt"/>
+        <line num="5" count="8" type="stmt"/>
+        <line num="6" count="8" type="stmt"/>
+        <line num="7" count="8" type="stmt"/>
+        <line num="8" count="8" type="stmt"/>
+        <line num="9" count="8" type="stmt"/>
+        <line num="10" count="8" type="stmt"/>
+        <line num="11" count="8" type="stmt"/>
+        <line num="12" count="8" type="stmt"/>
+        <line num="13" count="8" type="stmt"/>
+        <line num="14" count="8" type="stmt"/>
+        <line num="16" count="8" type="stmt"/>
+        <line num="17" count="8" type="stmt"/>
+      </file>
+      <file name="messages.ts" path="/home/travis/build/nanogiants/nano-nodegen/src/lib/enums/messages.ts">
+        <metrics statements="10" coveredstatements="10" conditionals="2" coveredconditionals="2" methods="1" coveredmethods="1"/>
+        <line num="1" count="7" type="cond" truecount="2" falsecount="0"/>
+        <line num="2" count="7" type="stmt"/>
+        <line num="3" count="7" type="stmt"/>
+        <line num="4" count="7" type="stmt"/>
+        <line num="5" count="7" type="stmt"/>
+        <line num="6" count="7" type="stmt"/>
+        <line num="7" count="7" type="stmt"/>
+        <line num="8" count="7" type="stmt"/>
+        <line num="9" count="7" type="stmt"/>
+        <line num="10" count="7" type="stmt"/>
+      </file>
+      <file name="names.ts" path="/home/travis/build/nanogiants/nano-nodegen/src/lib/enums/names.ts">
+        <metrics statements="10" coveredstatements="10" conditionals="2" coveredconditionals="2" methods="1" coveredmethods="1"/>
+        <line num="1" count="7" type="cond" truecount="2" falsecount="0"/>
+        <line num="2" count="7" type="stmt"/>
+        <line num="3" count="7" type="stmt"/>
+        <line num="4" count="7" type="stmt"/>
+        <line num="5" count="7" type="stmt"/>
+        <line num="6" count="7" type="stmt"/>
+        <line num="7" count="7" type="stmt"/>
+        <line num="8" count="7" type="stmt"/>
+        <line num="9" count="7" type="stmt"/>
+        <line num="10" count="7" type="stmt"/>
+      </file>
+    </package>
+    <package name="lib.helpers">
+      <metrics statements="14" coveredstatements="14" conditionals="0" coveredconditionals="0" methods="6" coveredmethods="6"/>
+      <file name="github.client.ts" path="/home/travis/build/nanogiants/nano-nodegen/src/lib/helpers/github.client.ts">
+        <metrics statements="7" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="3"/>
+        <line num="1" count="7" type="stmt"/>
+        <line num="6" count="7" type="stmt"/>
+        <line num="12" count="15" type="stmt"/>
+        <line num="13" count="14" type="stmt"/>
+        <line num="17" count="14" type="stmt"/>
+        <line num="18" count="13" type="stmt"/>
+        <line num="22" count="7" type="stmt"/>
+      </file>
+      <file name="index.ts" path="/home/travis/build/nanogiants/nano-nodegen/src/lib/helpers/index.ts">
+        <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="3"/>
+        <line num="1" count="8" type="stmt"/>
+        <line num="5" count="8" type="stmt"/>
+        <line num="6" count="52" type="stmt"/>
+        <line num="9" count="8" type="stmt"/>
+        <line num="10" count="2" type="stmt"/>
+      </file>
+      <file name="package.ts" path="/home/travis/build/nanogiants/nano-nodegen/src/lib/helpers/package.ts">
+        <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="2" count="8" type="stmt"/>
+        <line num="4" count="8" type="stmt"/>
+      </file>
+    </package>
+    <package name="lib.test">
+      <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
+      <file name="helpers.ts" path="/home/travis/build/nanogiants/nano-nodegen/src/lib/test/helpers.ts">
+        <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
+        <line num="2" count="6" type="stmt"/>
+        <line num="4" count="6" type="stmt"/>
+        <line num="6" count="15" type="stmt"/>
+        <line num="7" count="15" type="stmt"/>
+      </file>
+    </package>
+    <package name="license">
+      <metrics statements="22" coveredstatements="22" conditionals="4" coveredconditionals="4" methods="3" coveredmethods="3"/>
+      <file name="index.ts" path="/home/travis/build/nanogiants/nano-nodegen/src/license/index.ts">
+        <metrics statements="22" coveredstatements="22" conditionals="4" coveredconditionals="4" methods="3" coveredmethods="3"/>
+        <line num="1" count="7" type="stmt"/>
+        <line num="2" count="7" type="stmt"/>
+        <line num="4" count="7" type="stmt"/>
+        <line num="5" count="7" type="stmt"/>
+        <line num="6" count="7" type="stmt"/>
+        <line num="7" count="7" type="stmt"/>
+        <line num="9" count="7" type="stmt"/>
+        <line num="13" count="16" type="stmt"/>
+        <line num="19" count="16" type="cond" truecount="2" falsecount="0"/>
+        <line num="20" count="15" type="stmt"/>
+        <line num="21" count="15" type="stmt"/>
+        <line num="22" count="14" type="stmt"/>
+        <line num="28" count="158" type="stmt"/>
+        <line num="34" count="14" type="stmt"/>
+        <line num="36" count="1" type="stmt"/>
+        <line num="37" count="1" type="stmt"/>
+        <line num="43" count="16" type="cond" truecount="2" falsecount="0"/>
+        <line num="44" count="14" type="stmt"/>
+        <line num="45" count="14" type="stmt"/>
+        <line num="46" count="13" type="stmt"/>
+        <line num="50" count="1" type="stmt"/>
+        <line num="53" count="14" type="stmt"/>
+      </file>
+    </package>
+    <package name="lintstaged">
+      <metrics statements="16" coveredstatements="16" conditionals="4" coveredconditionals="4" methods="3" coveredmethods="3"/>
+      <file name="index.ts" path="/home/travis/build/nanogiants/nano-nodegen/src/lintstaged/index.ts">
+        <metrics statements="16" coveredstatements="16" conditionals="4" coveredconditionals="4" methods="3" coveredmethods="3"/>
+        <line num="1" count="2" type="stmt"/>
+        <line num="3" count="2" type="stmt"/>
+        <line num="4" count="2" type="stmt"/>
+        <line num="5" count="2" type="stmt"/>
+        <line num="6" count="2" type="stmt"/>
+        <line num="8" count="2" type="stmt"/>
+        <line num="9" count="4" type="stmt"/>
+        <line num="11" count="4" type="stmt"/>
+        <line num="12" count="4" type="stmt"/>
+        <line num="18" count="4" type="stmt"/>
+        <line num="27" count="4" type="cond" truecount="2" falsecount="0"/>
+        <line num="28" count="2" type="stmt"/>
+        <line num="30" count="2" type="stmt"/>
+        <line num="33" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="34" count="1" type="stmt"/>
+        <line num="37" count="2" type="stmt"/>
+      </file>
+    </package>
+    <package name="prettier">
+      <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+      <file name="index.ts" path="/home/travis/build/nanogiants/nano-nodegen/src/prettier/index.ts">
+        <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="1" count="2" type="stmt"/>
+        <line num="3" count="2" type="stmt"/>
+        <line num="4" count="2" type="stmt"/>
+        <line num="6" count="2" type="stmt"/>
+        <line num="8" count="2" type="stmt"/>
+        <line num="9" count="2" type="stmt"/>
+      </file>
+    </package>
+    <package name="sonarqube">
+      <metrics statements="13" coveredstatements="13" conditionals="2" coveredconditionals="2" methods="3" coveredmethods="3"/>
+      <file name="index.ts" path="/home/travis/build/nanogiants/nano-nodegen/src/sonarqube/index.ts">
+        <metrics statements="13" coveredstatements="13" conditionals="2" coveredconditionals="2" methods="3" coveredmethods="3"/>
+        <line num="1" count="2" type="stmt"/>
+        <line num="2" count="2" type="stmt"/>
+        <line num="4" count="2" type="stmt"/>
+        <line num="5" count="2" type="stmt"/>
+        <line num="6" count="2" type="stmt"/>
+        <line num="8" count="2" type="stmt"/>
+        <line num="12" count="3" type="stmt"/>
+        <line num="21" count="3" type="cond" truecount="2" falsecount="0"/>
+        <line num="22" count="1" type="stmt"/>
+        <line num="24" count="1" type="stmt"/>
+        <line num="25" count="2" type="stmt"/>
+        <line num="28" count="1" type="stmt"/>
+        <line num="33" count="1" type="stmt"/>
+      </file>
+    </package>
+  </project>
+</coverage>
