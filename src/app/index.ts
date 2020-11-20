@@ -8,17 +8,6 @@ import { Names } from '../lib/enums/names';
 import { withFeature, validatePackageJsonName } from '../lib/helpers';
 import rootPkg from '../lib/helpers/package';
 
-const defaultAnswers: Answers = {
-  [Names.PROJECT_NAME]: Names.PROJECT_NAME,
-  [Names.AUTHOR]: Names.AUTHOR,
-  [Names.FEATURES]: [],
-  [Names.SONARQUBE]: false,
-  [Names.LINT_STAGED]: false,
-  [Names.WITH_LICENSE]: true,
-  [Names.LICENSE]: 'mit',
-  [Names.CHANGELOG]: true,
-};
-
 export default class extends Generator {
   answers!: Answers;
 
@@ -29,19 +18,19 @@ export default class extends Generator {
         name: Names.PROJECT_NAME,
         message: Messages.PROJECT_NAME,
         validate: validatePackageJsonName,
-        default: defaultAnswers.projectname,
+        default: Names.PROJECT_NAME,
       },
       {
         type: 'input',
         name: Names.AUTHOR,
         message: Messages.AUTHOR,
-        default: defaultAnswers.author,
+        default: Names.AUTHOR,
       },
       {
         type: 'checkbox',
         name: Names.FEATURES,
         message: Messages.FEATURES,
-        default: defaultAnswers.features,
+        default: [],
         choices: [
           {
             name: Features.ESLINT,
