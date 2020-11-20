@@ -20,6 +20,7 @@ These commands will prompt you with some questions from which your project gets 
 ├── .gitignore # files ignored by git
 ├── .prettierrc.js # prettier config
 ├── LICENSE.md
+├── CHANGELOG.md
 ├── README.md
 ├── docker-compose.yml # compose file for sonarqube and postgress containers
 ├── jest.config.js # config for your jest testing library
@@ -102,4 +103,8 @@ For feature requests please use the issuetracker and specify your exact needs.
 
 ## License
 
-[MIT](https://github.com/nanogiants/nano-nodegen/blob/develop/LICENSE.md)
+[MIT](https://github.com/nanogiants/nano-nodegen/blob/master/LICENSE.md)
+
+## Changelog
+
+[MIT](https://github.com/nanogiants/nano-nodegen/blob/master/CHANGELOG.md)
