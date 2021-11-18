@@ -1,15 +1,15 @@
 jobs:
   include:
     - stage: test
-      name: "Unit Tests"  
+      name: 'Unit Tests'
       language: node_js
-      if: type IN (pull_request, push) AND (NOT (branch = master))
+      if: type IN (pull_request, push) AND branch = develop
       node_js:
-      - 14
-      - 13
-      - 12
-      - 11
-      - 10
+        - 14
+        - 13
+        - 12
+        - 11
+        - 10
       install:
         - npm i
       script:
@@ -21,7 +21,7 @@ jobs:
         email: false
 
     - stage: build and deploy
-      name: "Build and deploy(on push)"
+      name: 'Build and deploy(on push)'
       language: node_js
       if: type IN (pull_request, push) AND branch = master
       node_js: 12
@@ -39,7 +39,7 @@ jobs:
         - provider: pages
           skip-cleanup: true
           local_dir: coverage/lcov-report
-          github-token: $GITHUB_TOKEN  # Set in the settings page of your repository, as a secure variable
+          github-token: $GITHUB_TOKEN # Set in the settings page of your repository, as a secure variable
           repo: nanogiants/nano-nodegen
           keep-history: true
           target-branch: gh-pages

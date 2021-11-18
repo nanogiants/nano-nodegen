@@ -1,3 +1,13 @@
+# [1.0.0](https://github.com/nanogiants/nano-nodegen/compare/v0.1.12...v1.0.0) (2021-11-18)
+
+
+### Bug Fixes
+
+* **changelog:** fix error where changelog was not created because of missing flag ([9ac653d](https://github.com/nanogiants/nano-nodegen/commit/9ac653d7a3341a21d3d1fedeb86697959acb3795))
+* dependencies ([f1d3aaf](https://github.com/nanogiants/nano-nodegen/commit/f1d3aaf17fa2ed871f004d27dea57d7040a99c28))
+
+
+
 ## [0.2.3](https://github.com/nanogiants/nano-nodegen/compare/v0.2.2...v0.2.3) (2020-11-20)
 
 
