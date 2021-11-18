@@ -1,3 +1,20 @@
+# [1.0.0](https://github.com/nanogiants/nano-nodegen/compare/v0.1.12...v1.0.0) (2021-11-18)
+
+
+### Bug Fixes
+
+* **changelog:** fix error where changelog was not created because of missing flag ([9ac653d](https://github.com/nanogiants/nano-nodegen/commit/9ac653d7a3341a21d3d1fedeb86697959acb3795))
+* dependencies ([f1d3aaf](https://github.com/nanogiants/nano-nodegen/commit/f1d3aaf17fa2ed871f004d27dea57d7040a99c28))
+
+
+### Features
+
+* **changelog:** add changelog option to generator ([460a7b9](https://github.com/nanogiants/nano-nodegen/commit/460a7b9a97bfdae4658f8831bb846dc265b6da6b))
+* **git:** init empty git repo ([67fb5a4](https://github.com/nanogiants/nano-nodegen/commit/67fb5a4e9c8b7a119264c2a4e047ca586014f167))
+* **github:** create github client ([599363a](https://github.com/nanogiants/nano-nodegen/commit/599363a385d62eeb4bdd75110c251957a9b9f16b))
+
+
+
 ## [0.2.3](https://github.com/nanogiants/nano-nodegen/compare/v0.2.2...v0.2.3) (2020-11-20)
 
 
